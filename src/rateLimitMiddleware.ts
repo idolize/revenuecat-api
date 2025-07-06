@@ -126,6 +126,25 @@ class RateLimitManager {
     return 1;
   }
 
+  private async isRetryable(response: Response): Promise<boolean> {
+    try {
+      // Clone the response to avoid consuming the body
+      const clonedResponse = response.clone();
+      const body = await clonedResponse.json();
+
+      // Check if retryable field exists and is false
+      if (typeof body === "object" && body !== null && "retryable" in body) {
+        return body.retryable !== false;
+      }
+
+      // Default to retryable if no retryable field is present
+      return true;
+    } catch {
+      // If we can't parse the JSON, default to retryable
+      return true;
+    }
+  }
+
   async waitForThrottle(request: Request): Promise<void> {
     const endpointKey = this.getEndpointKey(request);
 
@@ -161,6 +180,13 @@ class RateLimitManager {
       return response;
     }
 
+    // Check if the response indicates it's not retryable
+    const shouldRetry = await this.isRetryable(response);
+    if (!shouldRetry) {
+      // If not retryable, return the original response immediately
+      return response;
+    }
+
     const endpointKey = this.getEndpointKey(request);
 
     // Initialize endpoint state if it doesn't exist
@@ -191,6 +217,15 @@ class RateLimitManager {
           state.isThrottled = false;
           return retryResponse;
         }
+
+        // Check if the retry response is also not retryable
+        const shouldRetryAgain = await this.isRetryable(retryResponse);
+        if (!shouldRetryAgain) {
+          // If not retryable, return the response immediately
+          state.isThrottled = false;
+          return retryResponse;
+        }
+
         // If still 429, update retryAfter for next attempt
         retryAfter = this.getRetryAfterTime(retryResponse);
         state.retryAfter = retryAfter;

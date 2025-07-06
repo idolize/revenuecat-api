@@ -276,6 +276,189 @@ describe("Rate Limit Middleware", () => {
       expect(caughtError).toBeInstanceOf(Error);
       expect(caughtError?.message).toBe("Network error");
     });
+
+    it("should not retry when response body has retryable: false", async () => {
+      const middleware = createRateLimitMiddleware();
+      const request = new Request("https://api.revenuecat.com/v1/subscribers");
+
+      const response429 = new Response(
+        JSON.stringify({
+          type: "rate_limit_error",
+          message: "Rate limit exceeded",
+          retryable: false,
+          doc_url: "https://errors.rev.cat/rate-limit-error",
+          backoff_ms: 1000,
+        }),
+        {
+          status: 429,
+          headers: { "Retry-After": "1", "Content-Type": "application/json" },
+        }
+      );
+
+      const result = await middleware.onResponse?.({
+        ...createMockCallbackParams(request),
+        response: response429,
+      });
+
+      // Should return the original response without retrying
+      expect(result).toBe(response429);
+      expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it("should retry when response body has retryable: true", async () => {
+      const middleware = createRateLimitMiddleware();
+      const request = new Request("https://api.revenuecat.com/v1/subscribers");
+
+      // Mock successful retry
+      mockFetch.mockResolvedValueOnce(new Response("Success", { status: 200 }));
+
+      const response429 = new Response(
+        JSON.stringify({
+          type: "rate_limit_error",
+          message: "Rate limit exceeded",
+          retryable: true,
+          doc_url: "https://errors.rev.cat/rate-limit-error",
+          backoff_ms: 1000,
+        }),
+        {
+          status: 429,
+          headers: { "Retry-After": "1", "Content-Type": "application/json" },
+        }
+      );
+
+      const onResponsePromise = middleware.onResponse?.({
+        ...createMockCallbackParams(request),
+        response: response429,
+      });
+
+      // Fast-forward time to complete the retry-after delay
+      vi.advanceTimersByTime(1000);
+      await vi.runAllTimersAsync();
+
+      const result = await onResponsePromise;
+
+      expect(mockFetch).toHaveBeenCalledWith(request, {});
+      expect(result).toBeInstanceOf(Response);
+      expect(result?.status).toBe(200);
+    });
+
+    it("should retry when response body has no retryable field", async () => {
+      const middleware = createRateLimitMiddleware();
+      const request = new Request("https://api.revenuecat.com/v1/subscribers");
+
+      // Mock successful retry
+      mockFetch.mockResolvedValueOnce(new Response("Success", { status: 200 }));
+
+      const response429 = new Response(
+        JSON.stringify({
+          type: "rate_limit_error",
+          message: "Rate limit exceeded",
+          doc_url: "https://errors.rev.cat/rate-limit-error",
+          backoff_ms: 1000,
+        }),
+        {
+          status: 429,
+          headers: { "Retry-After": "1", "Content-Type": "application/json" },
+        }
+      );
+
+      const onResponsePromise = middleware.onResponse?.({
+        ...createMockCallbackParams(request),
+        response: response429,
+      });
+
+      // Fast-forward time to complete the retry-after delay
+      vi.advanceTimersByTime(1000);
+      await vi.runAllTimersAsync();
+
+      const result = await onResponsePromise;
+
+      expect(mockFetch).toHaveBeenCalledWith(request, {});
+      expect(result).toBeInstanceOf(Response);
+      expect(result?.status).toBe(200);
+    });
+
+    it("should retry when response body is not valid JSON", async () => {
+      const middleware = createRateLimitMiddleware();
+      const request = new Request("https://api.revenuecat.com/v1/subscribers");
+
+      // Mock successful retry
+      mockFetch.mockResolvedValueOnce(new Response("Success", { status: 200 }));
+
+      const response429 = new Response("Invalid JSON response", {
+        status: 429,
+        headers: { "Retry-After": "1" },
+      });
+
+      const onResponsePromise = middleware.onResponse?.({
+        ...createMockCallbackParams(request),
+        response: response429,
+      });
+
+      // Fast-forward time to complete the retry-after delay
+      vi.advanceTimersByTime(1000);
+      await vi.runAllTimersAsync();
+
+      const result = await onResponsePromise;
+
+      expect(mockFetch).toHaveBeenCalledWith(request, {});
+      expect(result).toBeInstanceOf(Response);
+      expect(result?.status).toBe(200);
+    });
+
+    it("should stop retrying when retry response has retryable: false", async () => {
+      const middleware = createRateLimitMiddleware();
+      const request = new Request("https://api.revenuecat.com/v1/subscribers");
+
+      // Mock retry response to return 429 with retryable: false
+      mockFetch.mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            type: "rate_limit_error",
+            message: "Rate limit exceeded",
+            retryable: false,
+            doc_url: "https://errors.rev.cat/rate-limit-error",
+            backoff_ms: 1000,
+          }),
+          {
+            status: 429,
+            headers: { "Retry-After": "1", "Content-Type": "application/json" },
+          }
+        )
+      );
+
+      const response429 = new Response(
+        JSON.stringify({
+          type: "rate_limit_error",
+          message: "Rate limit exceeded",
+          retryable: true,
+          doc_url: "https://errors.rev.cat/rate-limit-error",
+          backoff_ms: 1000,
+        }),
+        {
+          status: 429,
+          headers: { "Retry-After": "1", "Content-Type": "application/json" },
+        }
+      );
+
+      const onResponsePromise = middleware.onResponse?.({
+        ...createMockCallbackParams(request),
+        response: response429,
+      });
+
+      // Fast-forward time to complete the retry-after delay
+      vi.advanceTimersByTime(1000);
+      await vi.runAllTimersAsync();
+
+      const result = await onResponsePromise;
+
+      // Should have called fetch once for the retry
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+      expect(mockFetch).toHaveBeenCalledWith(request, {});
+      // Should return the retry response (429 with retryable: false)
+      expect(result).toBeInstanceOf(Response);
+      expect(result?.status).toBe(429);
+    });
   });
 
   describe("endpoint-specific throttling", () => {
