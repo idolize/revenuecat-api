@@ -1,20 +1,33 @@
 {
   "name": "revenuecat-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Type-safe RevenueCat API client using fetch with automatic rate limiting",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "generate:openapi": "scripts/generate_openapi_client.sh",
+    "prepack": "pnpm generate:openapi && tsc",
     "test": "vitest --no-watch",
     "test:watch": "vitest",
-    "prepack": "pnpm generate:openapi && tsc",
     "types:check": "tsc --noEmit",
     "lint": "eslint ./src/**",
-    "lint:fix": "eslint ./src/** --fix"
+    "lint:fix": "eslint ./src/** --fix",
+    "update:openapi": "rm downloaded/openapi.yaml && pnpm generate:openapi",
+    "generate:openapi": "scripts/generate_openapi_client.sh"
   },
-  "keywords": [],
+  "keywords": [
+    "revenuecat",
+    "revenue-cat",
+    "api",
+    "client",
+    "fetch",
+    "rate-limiting"
+  ],
   "author": "David Idol",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idolize/revenuecat-api.git"
+  },
   "packageManager": "pnpm@10.11.0",
   "devDependencies": {
     "@eslint/js": "^9.30.1",
