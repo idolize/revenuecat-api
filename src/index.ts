@@ -18,21 +18,23 @@ const defaultOptions: CreateRevenueCatClientOptions = {
 
 export function createRevenueCatClient(
   accessToken: string,
-  {
-    automaticRateLimit,
-    ...options
-  }: CreateRevenueCatClientOptions = defaultOptions
+  options?: CreateRevenueCatClientOptions
 ) {
   if (!accessToken) {
     // For non-TS users, we'll throw an error if the accessToken is not provided
     throw new Error("accessToken is required");
   }
 
-  const client = createClient<paths>({
+  const { automaticRateLimit, headers, ...otherOptions } = {
+    ...defaultOptions,
     ...options,
+  };
+
+  const client = createClient<paths>({
+    ...otherOptions,
     headers: {
-      ...options.headers,
       Authorization: `Bearer ${accessToken}`,
+      ...headers,
     },
   });
 
