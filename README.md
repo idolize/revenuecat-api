@@ -31,22 +31,27 @@ npm install revenuecat-api
 import { createRevenueCatClient } from 'revenuecat-api';
 
 // Create a client with your RevenueCat API key
-const client = await createRevenueCatClient('your-api-key-here');
+const client = createRevenueCatClient('your-api-key-here');
 
-// Example: Fetch subscribers
+// Example: Fetch subscription information
 // (Note all API endpoint strings are type-safe and discoverable via IntelliSense!)
-const { data, error } = await client.GET('/v2/subscribers/{app_user_id}', {
+const { data, error } = await client[
+  "/projects/{project_id}/customers/{customer_id}/subscriptions"
+].GET({
   params: {
-    // Parameters are type checked
-    path: { app_user_id: 'user123' }
-  }
+    // Request path, query, and body are type checked
+    path: {
+      project_id: "proj1ab2c3d4",
+      customer_id: "19b8de26-77c1-49f1-aa18-019a391603e2",
+    },
+  },
 });
 
 // Response data is typed as well
 if (error) {
-  console.error('Error:', error);
+  console.error(`Error of type ${error.type}:`, error.message);
 } else {
-  console.log('Subscriber data:', data);
+  console.log('Subscription data:', data);
 }
 ```
 
@@ -62,7 +67,7 @@ The client automatically handles RevenueCat's rate limiting by:
 You can disable automatic rate limiting if desired:
 
 ```typescript
-const client = await createRevenueCatClient('your-api-key', {
+const client = createRevenueCatClient('your-api-key', {
   automaticRateLimit: false
 });
 ```
@@ -86,50 +91,70 @@ Creates a new RevenueCat API client instance.
 - `baseUrl` (string, default: `"https://api.revenuecat.com/v2"`): API base URL
 - All other [options from `openapi-fetch`](https://openapi-ts.dev/openapi-fetch/api#createclient) are supported
 
-**Returns:** Promise resolving to a configured API client
+**Returns:** A configured API client
 
 ## Examples
 
-### Managing Subscriptions
+### Managing Subscriptions / Entitlements
 
 ```typescript
-// Get subscriber information
-const { data: subscriber } = await client.GET('/v2/subscribers/{app_user_id}', {
-  params: { path: { app_user_id: 'user123' } }
-});
-
-// Grant promotional entitlement
-const { data: grant } = await client.POST('/v2/subscribers/{app_user_id}/entitlements/{entitlement_id}/promotional', {
+// Get subscriptions information
+const { data: subscriptions } = await client[
+  "/projects/{project_id}/customers/{customer_id}/subscriptions"
+].GET({
   params: {
     path: {
-      app_user_id: 'user123',
-      entitlement_id: 'premium'
-    }
+      project_id: "proj1ab2c3d4",
+      customer_id: "19b8de26-77c1-49f1-aa18-019a391603e2",
+    },
+    query: {
+      limit: 20,
+      starting_after: "ent12354",
+    },
+  },
+});
+
+// Create entitlement
+const { data: entitlement } = await client[
+  "/projects/{project_id}/entitlements"
+].POST({
+  params: {
+    path: {
+      project_id: "proj1ab2c3d4",
+    },
   },
   body: {
-    duration: 'month',
-    start_time_ms: Date.now()
-  }
+    lookup_key: "premium",
+    display_name: "Premium",
+  },
 });
 ```
 
 ### Handling Errors
 
 ```typescript
-const { data, error } = await client.GET('/v2/subscribers/{app_user_id}', {
-  params: { path: { app_user_id: 'user123' } }
+const { data, error } = await client[
+  "/projects/{project_id}/customers/{customer_id}"
+].GET({
+  params: {
+    path: {
+      project_id: "proj1ab2c3d4",
+      customer_id: "19b8de26-77c1-49f1-aa18-019a391603e2",
+    },
+  },
 });
 
 if (error) {
-  switch (error.status) {
-    case 404:
-      console.log('Subscriber not found');
+  switch (error.type) {
+    case "resource_missing":
+      console.log("Resource not found");
       break;
-    case 429:
-      console.log('Rate limit exceeded');
+    case "rate_limit_error":
+      console.log("Rate limit exceeded");
       break;
     default:
-      console.error('API error:', error);
+      console.log("Unknown error", error.message, error.doc_url);
+      break;
   }
 }
 ```
