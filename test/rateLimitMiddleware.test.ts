@@ -257,17 +257,24 @@ describe("Rate Limit Middleware", () => {
         headers: { "Retry-After": "1" },
       });
 
-      await expect(async () => {
-        const onResponsePromise = middleware.onResponse?.({
+      let caughtError: Error | undefined;
+      const onResponsePromise = (
+        middleware.onResponse?.({
           ...createMockCallbackParams(request),
           response: response429,
-        });
+        }) as Promise<Response | undefined>
+      ).catch((error) => {
+        // Work around Vitest issue catching unhandled rejections
+        caughtError = error;
+      });
 
-        // Fast-forward time to complete the retry-after delay
-        vi.advanceTimersByTime(1000);
-        await vi.runAllTimersAsync();
-        return await onResponsePromise;
-      }).rejects.toThrow("Network error");
+      // Fast-forward time to complete the retry-after delay
+      vi.advanceTimersByTime(1000);
+      await vi.runAllTimersAsync();
+      await onResponsePromise;
+
+      expect(caughtError).toBeInstanceOf(Error);
+      expect(caughtError?.message).toBe("Network error");
     });
   });
 
