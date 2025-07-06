@@ -4,7 +4,7 @@ A type-safe, isomorphic API client for the RevenueCat v2 REST API.
 
 ## Overview
 
-This package provides a lightweight, fully-typed client for interacting with the RevenueCat API. It's generated from the [official RevenueCat OpenAPI specification](https://www.revenuecat.com/docs/api-v2) and built on top of `openapi-typescript` and `openapi-fetch`, offering significantly smaller bundle sizes compared to traditional code generators like `openapi-generator`.
+This package provides a lightweight, fully-typed client for interacting with the RevenueCat API. It's generated from the [official RevenueCat OpenAPI specification](https://www.revenuecat.com/docs/api-v2) and built on top of [`openapi-typescript`](https://openapi-ts.dev/) and [`openapi-fetch`](https://openapi-ts.dev/openapi-fetch/), offering significantly smaller bundle sizes compared to traditional code generators like `openapi-generator`.
 
 ## Features
 
@@ -83,8 +83,8 @@ Creates a new RevenueCat API client instance.
 **Options:**
 
 - `automaticRateLimit` (boolean, default: true): Enable/disable automatic rate limiting
-- `baseUrl` (string, default: "<https://api.revenuecat.com/v2>"): API base URL
-- All other options from `openapi-fetch` are supported
+- `baseUrl` (string, default: `"https://api.revenuecat.com/v2"`): API base URL
+- All other [options from `openapi-fetch`](https://openapi-ts.dev/openapi-fetch/api#createclient) are supported
 
 **Returns:** Promise resolving to a configured API client
 
