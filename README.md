@@ -64,6 +64,8 @@ The client can optionally handle RevenueCat's rate limiting by:
 - Automatically retrying failed requests (up to 3 times by default)
 - Managing per-endpoint rate limit states
 
+_Note that automatic rate limiting functionality is still in early development stages and may not be production ready_
+
 You can opt into automatic rate limiting if desired:
 
 ```typescript
