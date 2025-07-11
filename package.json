@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prepack": "pnpm generate:openapi && tsc",
+    "prepack": "pnpm generate:openapi && tsc && cp -R ./src/__generated ./dist/",
     "test": "vitest --no-watch",
     "test:watch": "vitest",
     "types:check": "tsc --noEmit",

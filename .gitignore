@@ -1,7 +1,4 @@
 dist
-src/__generated
-src/__generated_old
-!src/__generated/.gitkeep
 
 node_modules
 npm-debug.log*
