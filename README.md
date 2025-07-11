@@ -57,18 +57,18 @@ if (error) {
 
 ## Rate Limiting
 
-The client automatically handles RevenueCat's rate limiting by:
+The client can optionally handle RevenueCat's rate limiting by:
 
 - Respecting `Retry-After` headers from 429 responses
 - Queuing requests when rate limits are hit
 - Automatically retrying failed requests (up to 3 times by default)
 - Managing per-endpoint rate limit states
 
-You can disable automatic rate limiting if desired:
+You can opt into automatic rate limiting if desired:
 
 ```typescript
 const client = createRevenueCatClient('your-api-key', {
-  automaticRateLimit: false
+  automaticRateLimit: true
 });
 ```
 

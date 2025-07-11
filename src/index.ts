@@ -13,7 +13,7 @@ export type CreateRevenueCatClientOptions = ClientOptions & {
 
 const defaultOptions: CreateRevenueCatClientOptions = {
   baseUrl: "https://api.revenuecat.com/v2",
-  automaticRateLimit: true,
+  automaticRateLimit: false,
 };
 
 export function createRevenueCatClient(
