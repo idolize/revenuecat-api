@@ -50,69 +50,6 @@ class RateLimitManager {
     return `${request.method}:${url.pathname}`;
   }
 
-  private async processQueue(endpointKey: string): Promise<void> {
-    const state = this.endpointStates.get(endpointKey);
-    if (!state || state.queue.length === 0 || state.processing) {
-      return;
-    }
-
-    state.processing = true;
-
-    while (state.queue.length > 0) {
-      // Check if we need to wait before processing the next request
-      const now = Date.now();
-      if (
-        state.isThrottled &&
-        now < state.lastRetryTime + state.retryAfter * 1000
-      ) {
-        const waitTime = state.lastRetryTime + state.retryAfter * 1000 - now;
-        await this.delay(waitTime);
-      }
-
-      const queuedRequest = state.queue.shift();
-      if (!queuedRequest) break;
-
-      try {
-        // Make the actual request
-        const response = await fetch(
-          queuedRequest.request,
-          queuedRequest.options
-        );
-
-        if (response.status === 429) {
-          // Handle rate limit
-          const retryAfter = this.getRetryAfterTime(response);
-          state.isThrottled = true;
-          state.retryAfter = retryAfter;
-          state.lastRetryTime = Date.now();
-
-          if (queuedRequest.retryCount < this.maxRetries) {
-            // Re-queue for retry
-            queuedRequest.retryCount++;
-            state.queue.unshift(queuedRequest);
-
-            // Wait before processing next request
-            await this.delay(retryAfter * 1000);
-          } else {
-            // Max retries exceeded, return the 429 response
-            state.isThrottled = false;
-            queuedRequest.resolve(response);
-          }
-        } else {
-          // Success - clear throttled state
-          state.isThrottled = false;
-          queuedRequest.resolve(response);
-        }
-      } catch (error) {
-        queuedRequest.reject(
-          error instanceof Error ? error : new Error(String(error))
-        );
-      }
-    }
-
-    state.processing = false;
-  }
-
   private getRetryAfterTime(response: Response): number {
     const retryAfter = response.headers.get("Retry-After");
     if (retryAfter) {
@@ -283,5 +220,3 @@ export const createRateLimitMiddleware = (): Middleware => {
     },
   };
 };
-
-export const rateLimitMiddleware = createRateLimitMiddleware();
