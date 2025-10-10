@@ -229,6 +229,31 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/projects/{project_id}/products/{product_id}/create_in_store": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Push a product to the store
+         * @description Push a product to the App Store.
+         *
+         *     **For subscription products**: You must provide store information including duration and subscription group details.
+         *
+         *     **For in-app purchase products** (consumable, non-consumable, non-renewing subscription): No request body is required.
+         *      This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>.
+         */
+        post: operations["create-product-in-store"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/projects/{project_id}/products": {
         parameters: {
             query?: never;
@@ -819,6 +844,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/projects/{project_id}/customers/{customer_id}/virtual_currencies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a list of customer's virtual currencies balances
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         */
+        get: operations["list-virtual-currencies-balances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/virtual_currencies/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create a virtual currencies transaction
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>.
+         */
+        post: operations["create-virtual-currencies-transaction"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/virtual_currencies/update_balance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Update a virtual currencies balance without creating a transaction
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>.
+         */
+        post: operations["update-virtual-currencies-balance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/projects/{project_id}/customers/{customer_id}/attributes": {
         parameters: {
             query?: never;
@@ -970,6 +1055,8 @@ export interface components {
             };
         };
         App: {
+            [key: string]: unknown;
+        } & ({
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -999,7 +1086,7 @@ export interface components {
              * @example proj1a2b3c4
              */
             project_id: string;
-        } & components["schemas"]["AmazonApp"] & components["schemas"]["AppStoreApp"] & components["schemas"]["MacAppStoreApp"] & components["schemas"]["PlayStoreApp"] & components["schemas"]["StripeApp"] & components["schemas"]["RCBillingApp"] & components["schemas"]["RokuApp"] & components["schemas"]["PaddleApp"];
+        } & components["schemas"]["AmazonApp"] & components["schemas"]["AppStoreApp"] & components["schemas"]["MacAppStoreApp"] & components["schemas"]["PlayStoreApp"] & components["schemas"]["StripeApp"] & components["schemas"]["RCBillingApp"] & components["schemas"]["RokuApp"] & components["schemas"]["PaddleApp"]);
         AppCreate: {
             /** @description The name of the app */
             name: string;
@@ -1053,13 +1140,26 @@ export interface components {
          * @example US
          * @enum {string|null}
          */
-        Country: null | "AF" | "AL" | "DZ" | "AS" | "AD" | "AO" | "AI" | "AQ" | "AG" | "AR" | "AM" | "AW" | "AU" | "AT" | "AZ" | "BS" | "BH" | "BD" | "BB" | "BY" | "BE" | "BZ" | "BJ" | "BM" | "BT" | "BO" | "BQ" | "BA" | "BW" | "BV" | "BR" | "IO" | "BN" | "BG" | "BF" | "BI" | "CV" | "KH" | "CM" | "CA" | "KY" | "CF" | "TD" | "CL" | "CN" | "CX" | "CC" | "CO" | "KM" | "CD" | "CG" | "CK" | "CR" | "HR" | "CU" | "CW" | "CY" | "CZ" | "CI" | "DK" | "DJ" | "DM" | "DO" | "EC" | "EG" | "SV" | "GQ" | "ER" | "EE" | "SZ" | "ET" | "FK" | "FO" | "FJ" | "FI" | "FR" | "GF" | "PF" | "TF" | "GA" | "GM" | "GE" | "DE" | "GH" | "GI" | "GR" | "GL" | "GD" | "GP" | "GU" | "GT" | "GG" | "GN" | "GW" | "GY" | "HT" | "HM" | "VA" | "HN" | "HK" | "HU" | "IS" | "IN" | "ID" | "IR" | "IQ" | "IE" | "IM" | "IL" | "IT" | "JM" | "JP" | "JE" | "JO" | "KZ" | "KE" | "KI" | "KP" | "KR" | "KW" | "KG" | "LA" | "LV" | "LB" | "LS" | "LR" | "LY" | "LI" | "LT" | "LU" | "MO" | "MG" | "MW" | "MY" | "MV" | "ML" | "MT" | "MH" | "MQ" | "MR" | "MU" | "YT" | "MX" | "FM" | "MD" | "MC" | "MN" | "ME" | "MS" | "MA" | "MZ" | "MM" | "NA" | "NR" | "NP" | "NL" | "NC" | "NZ" | "NI" | "NE" | "NG" | "NU" | "NF" | "MP" | "NO" | "OM" | "PK" | "PW" | "PS" | "PA" | "PG" | "PY" | "PE" | "PH" | "PN" | "PL" | "PT" | "PR" | "QA" | "MK" | "RO" | "RU" | "RW" | "RE" | "BL" | "SH" | "KN" | "LC" | "MF" | "PM" | "VC" | "WS" | "SM" | "ST" | "SA" | "SN" | "RS" | "SC" | "SL" | "SG" | "SX" | "SK" | "SI" | "SB" | "SO" | "ZA" | "GS" | "SS" | "ES" | "LK" | "SD" | "SR" | "SJ" | "SE" | "CH" | "SY" | "TW" | "TJ" | "TZ" | "TH" | "TL" | "TG" | "TK" | "TO" | "TT" | "TN" | "TR" | "TM" | "TC" | "TV" | "UG" | "UA" | "AE" | "GB" | "UM" | "US" | "UY" | "UZ" | "VU" | "VE" | "VN" | "VG" | "VI" | "WF" | "EH" | "YE" | "ZM" | "ZW" | "AX";
+        Country: string | null;
+        /** @description In-app purchase products do not require any additional information */
+        CreateAppStoreConnectInAppPurchaseInput: Record<string, never>;
+        CreateAppStoreConnectSubscriptionInput: {
+            /**
+             * @description The subscription duration period
+             * @enum {string}
+             */
+            duration: "ONE_WEEK" | "ONE_MONTH" | "TWO_MONTHS" | "THREE_MONTHS" | "SIX_MONTHS" | "ONE_YEAR";
+            /** @description The name of the subscription group */
+            subscription_group_name: string;
+            /** @description The ID of the subscription group (optional) */
+            subscription_group_id?: string | null;
+        };
         /**
          * @description ISO 4217 currency code
          * @example USD
          * @enum {string}
          */
-        Currency: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DJF" | "DKK" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LKR" | "LRD" | "LSL" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XOF" | "XPD" | "XPF" | "XPT" | "YER" | "ZAR" | "ZMW" | "ZWL";
+        Currency: string;
         Customer: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1154,7 +1254,7 @@ export interface components {
          * @example $email
          * @enum {string}
          */
-        CustomerAttributeReservedName: "$ad" | "$adGroup" | "$adjustId" | "$airshipChannelId" | "$amazonAdId" | "$amplitudeDeviceId" | "$amplitudeUserId" | "$appleRefundHandlingPreference" | "$apnsTokens" | "$appsflyerId" | "$appsflyerSharingFilter" | "$attConsentStatus" | "$branchId" | "$brazeAliasLabel" | "$brazeAliasName" | "$campaign" | "$clevertapId" | "$creative" | "$customerioId" | "$displayName" | "$email" | "$fbAnonId" | "$fcmTokens" | "$firebaseAppInstanceId" | "$gpsAdId" | "$idfa" | "$idfv" | "$ip" | "$iterableCampaignId" | "$iterableTemplateId" | "$iterableUserId" | "$keyword" | "$kochavaDeviceId" | "$mediaSource" | "$mixpanelDistinctId" | "$mparticleId" | "$onesignalId" | "$onesignalUserId" | "$phoneNumber" | "$posthogUserId" | "$telemetryDeckUserId" | "$telemetryDeckAppId" | "telemetry_deck_user_id" | "telemetry_deck_app_id" | "$segmentId" | "$tenjinId" | "$deviceVersion";
+        CustomerAttributeReservedName: string;
         CustomerEntitlement: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1251,7 +1351,7 @@ export interface components {
          * @example production
          * @enum {string}
          */
-        Environment: "production" | "sandbox";
+        Environment: string;
         Error: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1671,6 +1771,26 @@ export interface components {
              */
             url: string;
         };
+        /** VirtualCurrenciesBalancesList */
+        ListVirtualCurrenciesBalances: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Details about each object. */
+            items: components["schemas"]["VirtualCurrencyBalance"][];
+            /**
+             * @description URL to access the next page of the customer's balances. If not present / null, there is no next page
+             * @example /v2/projects/proj1ab2c3d4/customers/19b8de26-77c1-49f1-aa18-019a391603e2/virtual_currencies?starting_after=9fjeja8fjed
+             */
+            next_page: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/customers/19b8de26-77c1-49f1-aa18-019a391603e2/virtual_currencies
+             */
+            url: string;
+        };
         MacAppStoreApp: {
             /** @description Legacy Mac App Store type details */
             mac_app_store?: {
@@ -1847,7 +1967,7 @@ export interface components {
          * @example purchased
          * @enum {string}
          */
-        Ownership: "purchased" | "family_shared";
+        Ownership: string;
         Package: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1927,10 +2047,13 @@ export interface components {
                 /** @description Paddle Server-side API key provided on the Paddle dashboard. */
                 paddle_api_key?: string | null;
                 /**
-                 * @description Whether the app is tied to the sandbox environment.
+                 * @description [Deprecated] Whether the app is tied to the sandbox environment.
+                 *     This field is deprecated and will be removed in the future.
+                 *     The environment is determined by the `paddle_api_key` format.
+                 *
                  * @example true
                  */
-                paddle_is_sandbox?: boolean;
+                paddle_is_sandbox?: boolean | null;
             } | null;
         };
         Paywall: {
@@ -2023,7 +2146,7 @@ export interface components {
             display_name: string | null;
         };
         /** @enum {string} */
-        ProductType: "subscription" | "one_time" | "consumable" | "non_consumable" | "non_renewing_subscription";
+        ProductType: string;
         /** ProductsFromEntitlementList */
         ProductsFromEntitlement: {
             /**
@@ -2247,7 +2370,7 @@ export interface components {
          * @example USD
          * @enum {string}
          */
-        RCBillingCurrency: "AUD" | "CAD" | "EUR" | "GBP" | "JPY" | "USD";
+        RCBillingCurrency: string;
         RokuApp: {
             /** @description Roku Channel Store type details */
             roku?: {
@@ -2279,6 +2402,28 @@ export interface components {
             contents: {
                 [key: string]: unknown;
             };
+        };
+        StoreProduct: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "store_product";
+            /**
+             * @description The unique identifier of the product in the store (e.g., App Store Connect product ID)
+             * @example 1234567890
+             */
+            id: string;
+            /**
+             * @description The name of the store product
+             * @example Premium Monthly Subscription
+             */
+            name?: string | null;
+            /**
+             * @description The product identifier used in the store
+             * @example com.example.premium_monthly
+             */
+            product_identifier: string;
         };
         StripeApp: {
             /** @description Stripe type details */
@@ -2338,6 +2483,12 @@ export interface components {
              * @example 1658399423658
              */
             current_period_ends_at: number | null;
+            /**
+             * Format: int64
+             * @description The date when the latest subscription billing period is expected to end in ms since epoch. It will only be different from `current_period_ends_at` if `auto_renewal_status` is `has_already_renewed`, in which case it indicates the end of the next billing period. Can be null if the subscription is paused until an indefinite date.
+             * @example 1658399423658
+             */
+            ends_at: number | null;
             /**
              * @description Determines whether the customer should currently be provided access to the entitlements associated with the subscription
              * @example true
@@ -2458,6 +2609,22 @@ export interface components {
             source_customer: components["schemas"]["Customer"];
             /** @description The target customer after the transfer */
             target_customer: components["schemas"]["Customer"];
+        };
+        /** VirtualCurrencyBalance */
+        VirtualCurrencyBalance: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "virtual_currency_balance";
+            /** @description The code of the virtual currency. */
+            currency_code: string;
+            /** @description The balance of the virtual currency. */
+            balance: number;
+            /** @description The description of the virtual currency. */
+            description?: string;
+            /** @description The name of the virtual currency. */
+            name?: string;
         };
     };
     responses: {
@@ -3283,6 +3450,55 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DeletedObject"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "create-product-in-store": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the product */
+                product_id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Store-specific information. Only required for subscription products.
+         *     For in-app purchase products, send an empty body or omit the request body entirely.
+         *      */
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /** @description Store-specific information for creating the product in the store */
+                    store_information?: components["schemas"]["CreateAppStoreConnectSubscriptionInput"] | components["schemas"]["CreateAppStoreConnectInAppPurchaseInput"];
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The product was pushed to the store */
+            201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        created_product: components["schemas"]["StoreProduct"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4828,6 +5044,151 @@ export interface operations {
             401: components["responses"]["Unauthorized"];
             403: components["responses"]["Forbidden"];
             404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-virtual-currencies-balances": {
+        parameters: {
+            query?: {
+                include_empty_balances?: boolean;
+                starting_after?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListVirtualCurrenciesBalances"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "create-virtual-currencies-transaction": {
+        parameters: {
+            query?: {
+                include_empty_balances?: boolean;
+            };
+            header?: {
+                /** @description This is an optional idempotency key to ensure exactly once execution of the request. */
+                "Idempotency-Key"?: string;
+            };
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @description The adjustments to the virtual currencies */
+                    adjustments: {
+                        [key: string]: number;
+                    };
+                    /** @description The reference of the transaction */
+                    reference?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListVirtualCurrenciesBalances"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "update-virtual-currencies-balance": {
+        parameters: {
+            query?: {
+                include_empty_balances?: boolean;
+            };
+            header?: {
+                /** @description This is an optional idempotency key to ensure exactly once execution of the request. */
+                "Idempotency-Key"?: string;
+            };
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @description The adjustments to the virtual currencies */
+                    adjustments: {
+                        [key: string]: number;
+                    };
+                    /** @description The reference of the transaction */
+                    reference?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListVirtualCurrenciesBalances"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
             423: components["responses"]["Locked"];
             429: components["responses"]["RateLimited"];
             500: components["responses"]["InternalError"];
