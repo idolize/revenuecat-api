@@ -1093,7 +1093,6 @@ export interface components {
             /**
              * @description The platform of the app.
              *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
-             *
              * @enum {string}
              */
             type: "amazon" | "app_store" | "mac_app_store" | "play_store" | "stripe" | "rc_billing" | "roku" | "paddle";
@@ -1112,14 +1111,15 @@ export interface components {
                 bundle_id: string;
                 /** @description The shared secret of the app */
                 shared_secret?: string;
-                /** @description PKCS /#8 In App Key downloaded from App Store Connect in PEM format. Copy the contents
+                /**
+                 * @description PKCS /#8 In App Key downloaded from App Store Connect in PEM format. Copy the contents
                  *     of the file in this field. See instructions on how to get it in:
                  *     https://www.revenuecat.com/docs/in-app-purchase-key-configuration
-                 *      */
+                 */
                 subscription_private_key?: string;
                 /** @description In App Key id. The ID of the downloaded in app key. You can get it from App Store Connect */
                 subscription_key_id?: string;
-                /** @description The key Issuer id. See instructions on how to obtain this in: https://www.revenuecat.com/docs/in-app-purchase-key-configuration#3-providing-the-issuer-id-to-revenuecat  */
+                /** @description The key Issuer id. See instructions on how to obtain this in: https://www.revenuecat.com/docs/in-app-purchase-key-configuration#3-providing-the-issuer-id-to-revenuecat */
                 subscription_key_issuer?: string;
             };
         };
@@ -2050,7 +2050,6 @@ export interface components {
                  * @description [Deprecated] Whether the app is tied to the sandbox environment.
                  *     This field is deprecated and will be removed in the future.
                  *     The environment is determined by the `paddle_api_key` format.
-                 *
                  * @example true
                  */
                 paddle_is_sandbox?: boolean | null;
@@ -2347,7 +2346,7 @@ export interface components {
                  * @description The company support email. This field is deprecated. Please, use `support_email` instead.
                  */
                 seller_company_support_email?: string | null;
-                /** @description Used as the `reply to` address in all emails sent to customers, to allow them to receive support.  */
+                /** @description Used as the `reply to` address in all emails sent to customers, to allow them to receive support. */
                 support_email?: string | null;
                 /** @description The default currency to be used for the app. */
                 default_currency: components["schemas"]["RCBillingCurrency"];
@@ -2501,14 +2500,12 @@ export interface components {
             pending_payment: boolean;
             /**
              * @description The auto renewal status of a subscription.<br><br>Possible values:<br>• `will_renew`: the subscription is currently set to automatically renew<br>• `will_not_renew`: the subscription is currently set to expire at the end of the period<br>• `will_change_product`: the subscription is currently set to change product at the end of the period (which might start a new subscription)<br>• `will_pause`: the subscription is currently set to pause at the end of the current period<br>• `requires_price_increase_consent`: the subscription will expire at the end of the current period unless the customer consents to the price increase<br>• `has_already_renewed`: the customer has already been charged for the upcoming renewal (so the renewal will take place even if the customer opts out of auto-renewal before the end of the period)
-             *
              * @example will_renew
              * @enum {string}
              */
             auto_renewal_status: "will_renew" | "will_not_renew" | "will_change_product" | "will_pause" | "requires_price_increase_consent" | "has_already_renewed";
             /**
              * @description The status of a subscription. Please note that additional states might be added in the future. To determine whether or not a subscription currently provides access to any associated entitlements, use the _gives_access_ field.<br><br>Possible values:<br>• `trialing`: the subscription is in a free trial period<br>• `active`: the subscription is active, in a paid period<br>• `expired`: the subscription is expired and no longer active<br>• `in_grace_period`: the subscription is past its regular expiry date and experienced a billing issue, but is currently still in an access-granting grace period<br>• `in_billing_retry`: the subscription has experienced a billing issue. Billing is being retried, access is suspended.-paused: the subscription is currently paused and should not provide access.<br>• `unknown`: the subscription is in an unknown state. Refer to the _gives_access_ field to determine whether or not to grant access.<br>• `incomplete`: the subscription is in an incomplete state, maybe due to incorrect billing details or because it's scheduled to start in the future.
-             *
              * @example trialing
              * @enum {string}
              */
@@ -2778,7 +2775,6 @@ export interface operations {
                 "application/json": {
                     /**
                      * @description The ID of the offering the paywall will be created for.
-                     *
                      * @example ofrng123456789a
                      */
                     offering_id: string;
@@ -3264,8 +3260,10 @@ export interface operations {
     "get-customer": {
         parameters: {
             query?: {
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `attributes` (requires `customer_information:customers:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `attributes` (requires `customer_information:customers:read` permission).
+                 */
                 expand?: "attributes"[];
             };
             header?: never;
@@ -3322,11 +3320,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    /** @example {
+                    /**
+                     * @example {
                      *       "object": "customer",
                      *       "id": "b5b7bfd2-66fb-4091-af50-7c3cdccfdf24",
                      *       "deleted_at": 1658399423658
-                     *     } */
+                     *     }
+                     */
                     "application/json": components["schemas"]["DeletedObject"];
                 };
             };
@@ -3391,8 +3391,10 @@ export interface operations {
     "get-product": {
         parameters: {
             query?: {
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `app` (requires `project_configuration:apps:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `app` (requires `project_configuration:apps:read` permission).
+                 */
                 expand?: "app"[];
             };
             header?: never;
@@ -3476,9 +3478,10 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description Store-specific information. Only required for subscription products.
+        /**
+         * @description Store-specific information. Only required for subscription products.
          *     For in-app purchase products, send an empty body or omit the request body entirely.
-         *      */
+         */
         requestBody?: {
             content: {
                 "application/json": {
@@ -3520,8 +3523,10 @@ export interface operations {
                 app_id?: string;
                 starting_after?: string;
                 limit?: number;
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `items.app` (requires `project_configuration:apps:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `items.app` (requires `project_configuration:apps:read` permission).
+                 */
                 expand?: "items.app"[];
             };
             header?: never;
@@ -3574,7 +3579,6 @@ export interface operations {
                      *     - For Stripe, the product identifier that always starts with "prod_"
                      *     - For Amazon, if it's a subscription, the term SKU of the subscription. If it's a one-time purchase, the SKU of the product.
                      *     - For Roku, this is the product identifier of the subscription or one-time purchase product.
-                     *
                      * @example com.revenuecat.magicweather.monthly
                      */
                     store_identifier: string;
@@ -3620,8 +3624,10 @@ export interface operations {
     "get-entitlement": {
         parameters: {
             query?: {
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: "product"[];
             };
             header?: never;
@@ -3745,8 +3751,10 @@ export interface operations {
             query?: {
                 starting_after?: string;
                 limit?: number;
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `items.product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `items.product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: "items.product"[];
             };
             header?: never;
@@ -3958,8 +3966,10 @@ export interface operations {
     "get-offering": {
         parameters: {
             query?: {
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `package` (requires `project_configuration:packages:read` permission), `package.product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `package` (requires `project_configuration:packages:read` permission), `package.product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: ("package" | "package.product")[];
             };
             header?: never;
@@ -4090,8 +4100,10 @@ export interface operations {
             query?: {
                 starting_after?: string;
                 limit?: number;
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `items.package` (requires `project_configuration:packages:read` permission), `items.package.product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `items.package` (requires `project_configuration:packages:read` permission), `items.package.product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: ("items.package" | "items.package.product")[];
             };
             header?: never;
@@ -4179,8 +4191,10 @@ export interface operations {
     "get-package": {
         parameters: {
             query?: {
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: "product"[];
             };
             header?: never;
@@ -4309,8 +4323,10 @@ export interface operations {
             query?: {
                 starting_after?: string;
                 limit?: number;
-                /** @description Specifies which fields in the response should be expanded.
-                 *      Accepted values are: `items.product` (requires `project_configuration:products:read` permission). */
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `items.product` (requires `project_configuration:products:read` permission).
+                 */
                 expand?: "items.product"[];
             };
             header?: never;
