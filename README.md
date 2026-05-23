@@ -9,7 +9,6 @@ This package provides a lightweight, fully-typed client for interacting with the
 ## Features
 
 - **Type Safety**: Full TypeScript support with generated types from the official OpenAPI spec
-- **Automatic Rate Limiting**: Built-in rate limiting that respects RevenueCat's `Retry-After` headers
 - **Isomorphic**: Works in both server-side (Node.js, Deno) and browser environments
 - **Lightweight**: Minimal bundle size using modern fetch-based architecture
 - **Queue Management**: Intelligent request queuing to handle rate limits gracefully
@@ -28,10 +27,10 @@ npm install revenuecat-api
 ## Quick Start
 
 ```typescript
-import { createRevenueCatClient } from 'revenuecat-api';
+import { createRevenueCatClient } from "revenuecat-api";
 
 // Create a client with your RevenueCat API key
-const client = createRevenueCatClient('your-api-key-here');
+const client = createRevenueCatClient("your-api-key-here");
 
 // Example: Fetch subscription information
 // (Note all API endpoint strings are type-safe and discoverable via IntelliSense!)
@@ -51,30 +50,9 @@ const { data, error } = await client[
 if (error) {
   console.error(`Error of type ${error.type}:`, error.message);
 } else {
-  console.log('Subscription data:', data);
+  console.log("Subscription data:", data);
 }
 ```
-
-## Rate Limiting
-
-The client can optionally handle RevenueCat's rate limiting by:
-
-- Respecting `Retry-After` headers from 429 responses
-- Queuing requests when rate limits are hit
-- Automatically retrying failed requests (up to 3 times by default)
-- Managing per-endpoint rate limit states
-
-_Note that automatic rate limiting functionality is still in early development stages and may not be production ready_
-
-You can opt into automatic rate limiting if desired:
-
-```typescript
-const client = createRevenueCatClient('your-api-key', {
-  automaticRateLimit: true
-});
-```
-
-For more details on RevenueCat's rate limiting, see the [official documentation](https://www.revenuecat.com/docs/api-v2#tag/Rate-Limit).
 
 ## API Reference
 
@@ -89,7 +67,6 @@ Creates a new RevenueCat API client instance.
 
 **Options:**
 
-- `automaticRateLimit` (boolean, default: true): Enable/disable automatic rate limiting
 - `baseUrl` (string, default: `"https://api.revenuecat.com/v2"`): API base URL
 - All other [options from `openapi-fetch`](https://openapi-ts.dev/openapi-fetch/api#createclient) are supported
 
