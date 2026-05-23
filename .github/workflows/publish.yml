@@ -19,40 +19,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Read current and previous versions
+      - name: Read package version
         id: versions
         run: |
-          BEFORE="${{ github.event.before }}"
-          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
+          echo "name=$(node -p "require('./package.json').name")" >> "$GITHUB_OUTPUT"
+          echo "new=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Look up latest published version
+        id: npm
+        run: |
+          if PUBLISHED=$(npm view "${{ steps.versions.outputs.name }}" version 2>/dev/null); then
+            echo "published=$PUBLISHED" >> "$GITHUB_OUTPUT"
+          else
+            echo "Package not yet on npm; treating published version as 0.0.0"
+            echo "published=0.0.0" >> "$GITHUB_OUTPUT"
           fi
 
-          NEW=$(node -p "require('./package.json').version")
-          OLD=$(git show "$BEFORE:package.json" | node -p "JSON.parse(require('fs').readFileSync(0,'utf8')).version")
-
-          echo "skip=false" >> "$GITHUB_OUTPUT"
-          echo "new=$NEW" >> "$GITHUB_OUTPUT"
-          echo "old=$OLD" >> "$GITHUB_OUTPUT"
-
       - name: Compare versions
-        if: steps.versions.outputs.skip != 'true'
         id: semver
         uses: mage-os/github-actions/semver-compare@v1.7.3
         with:
           version: ${{ steps.versions.outputs.new }}
-          compare_against: ${{ steps.versions.outputs.old }}
+          compare_against: ${{ steps.npm.outputs.published }}
 
       - name: Check for version bump
         id: check
         run: |
-          if [ "${{ steps.versions.outputs.skip }}" = "true" ]; then
-            echo "should_publish=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "Previous version: ${{ steps.versions.outputs.old }}"
-          echo "Current version: ${{ steps.versions.outputs.new }}"
+          echo "Published version: ${{ steps.npm.outputs.published }}"
+          echo "Package version: ${{ steps.versions.outputs.new }}"
 
           if [ "${{ steps.semver.outputs.result }}" = "1" ]; then
             echo "should_publish=true" >> "$GITHUB_OUTPUT"
