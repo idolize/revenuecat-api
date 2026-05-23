@@ -142,7 +142,7 @@ if (error) {
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24+
 - pnpm (recommended) or npm
 
 ### Setup
