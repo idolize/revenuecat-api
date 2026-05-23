@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/projects/{project_id}/paywalls": {
+    "/projects/{project_id}/media_assets": {
         parameters: {
             query?: never;
             header?: never;
@@ -14,15 +14,68 @@ export interface paths {
         get?: never;
         put?: never;
         /**
+         * Upload a media asset
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["create-media-asset"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/paywalls": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a list of paywalls
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["list-paywalls"];
+        put?: never;
+        /**
          * Create a paywall
-         * @description Create a paywall for an offering of the project.
-         *      This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>.
+         * @description Create a paywall draft for a project. You can either use the offering template shortcut or provide full draft components directly.
+         *      This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-paywall"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/paywalls/{paywall_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a paywall
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["get-paywall"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete a paywall
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        delete: operations["delete-paywall"];
+        options?: never;
+        head?: never;
+        /**
+         * Update a paywall draft
+         * @description Update a paywall draft. If the paywall is already published, this updates its draft version without changing the published version.
+         *      This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        patch: operations["update-paywall"];
         trace?: never;
     };
     "/projects/{project_id}/apps/{app_id}/public_api_keys": {
@@ -34,7 +87,8 @@ export interface paths {
         };
         /**
          * Get a list of the public API keys of an app
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>.
+         * @description Returns public API keys for the app. RC Checkout public keys are omitted. Sandbox keys are always included. Production keys are omitted when the app uses Stripe or Web Billing and the linked Stripe connected account is sandbox or test-only (same behavior as the RevenueCat dashboard list).
+         *      This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-app-public-api-keys"];
         put?: never;
@@ -54,11 +108,15 @@ export interface paths {
         };
         /**
          * Get a list of projects
-         * @description This endpoint requires the following permission(s): <code>project_configuration:projects:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:projects:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-projects"];
         put?: never;
-        post?: never;
+        /**
+         * Creates a new project
+         * @description This endpoint requires the following permission(s): <code>project_configuration:projects:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["create-project"];
         delete?: never;
         options?: never;
         head?: never;
@@ -74,13 +132,13 @@ export interface paths {
         };
         /**
          * Get a list of apps
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-apps"];
         put?: never;
         /**
-         * Create an App
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>.
+         * Create an app
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-app"];
         delete?: never;
@@ -98,18 +156,18 @@ export interface paths {
         };
         /**
          * Get an app
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-app"];
         put?: never;
         /**
          * Update an app
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["update-app"];
         /**
          * Delete an app
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         delete: operations["delete-app"];
         options?: never;
@@ -126,9 +184,49 @@ export interface paths {
         };
         /**
          * Get the StoreKit configuration for an app
-         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:apps:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-app-storekit-config"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/audit_logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List audit logs
+         * @description This endpoint requires the following permission(s): <code>project_configuration:audit_logs:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["list-audit-logs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/collaborators": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a list of collaborators
+         * @description This endpoint requires the following permission(s): <code>project_configuration:collaborators:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["list-collaborators"];
         put?: never;
         post?: never;
         delete?: never;
@@ -146,13 +244,13 @@ export interface paths {
         };
         /**
          * Get a list of customers
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-customers"];
         put?: never;
         /**
          * Create a customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["create-customer"];
         delete?: never;
@@ -170,16 +268,36 @@ export interface paths {
         };
         /**
          * Get a customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["get-customer"];
         put?: never;
         post?: never;
         /**
          * Delete a customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         delete: operations["delete-customer"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/customer_center": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get customer center configuration
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        get: operations["get-customer-center-config"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -196,10 +314,142 @@ export interface paths {
         put?: never;
         /**
          * Transfer customer's subscriptions and one-time purchases to another customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>, <code>customer_information:subscriptions:read_write</code>, <code>customer_information:purchases:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>, <code>customer_information:subscriptions:read_write</code>, <code>customer_information:purchases:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["transfer-customer-data"];
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/actions/grant_entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Grant an entitlement to a customer
+         * @description Grants an entitlement to a customer unless one already exists. As a side effect, a promotional subscription is created. This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        post: operations["grant-customer-entitlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/actions/revoke_granted_entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Revoke a granted entitlement from a customer
+         * @description Revokes a granted entitlement from a customer. As a side effect, the promotional subscription associated with the granted entitlement is expired. This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        post: operations["revoke-customer-granted-entitlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/actions/assign_offering": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Assign or clear an offering override for a customer
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>, <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        post: operations["assign-customer-offering"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/customers/{customer_id}/actions/restore_purchase_by_order_id": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Restore a Google Play purchase by order ID
+         * @description Restores a Google Play purchase to the specified customer using a Google Play order ID. This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        post: operations["restore-purchase-by-order-id"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/integrations/webhooks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List webhook integrations
+         * @description This endpoint requires the following permission(s): <code>project_configuration:integrations:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["list-webhook-integrations"];
+        put?: never;
+        /**
+         * Create a webhook integration
+         * @description This endpoint requires the following permission(s): <code>project_configuration:integrations:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["create-webhook-integration"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/integrations/webhooks/{webhook_integration_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a webhook integration
+         * @description This endpoint requires the following permission(s): <code>project_configuration:integrations:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["get-webhook-integration"];
+        put?: never;
+        /**
+         * Update a webhook integration
+         * @description This endpoint requires the following permission(s): <code>project_configuration:integrations:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["update-webhook-integration"];
+        /**
+         * Delete a webhook integration
+         * @description This endpoint requires the following permission(s): <code>project_configuration:integrations:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        delete: operations["delete-webhook-integration"];
         options?: never;
         head?: never;
         patch?: never;
@@ -214,16 +464,62 @@ export interface paths {
         };
         /**
          * Get a product
-         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-product"];
         put?: never;
-        post?: never;
+        /**
+         * Update a product
+         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["update-product"];
         /**
          * Delete a product
-         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         delete: operations["delete-product"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/products/{product_id}/actions/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Archive a product
+         * @description Archives a product (makes it inactive).
+         *      This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["archive-product"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/products/{product_id}/actions/unarchive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Unarchive a product
+         * @description Unarchives a product (makes it active).
+         *      This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["unarchive-product"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -245,7 +541,7 @@ export interface paths {
          *     **For subscription products**: You must provide store information including duration and subscription group details.
          *
          *     **For in-app purchase products** (consumable, non-consumable, non-renewing subscription): No request body is required.
-         *      This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>.
+         *      This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-product-in-store"];
         delete?: never;
@@ -263,7 +559,7 @@ export interface paths {
         };
         /**
          * Get a list of products
-         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:products:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-products"];
         put?: never;
@@ -272,9 +568,103 @@ export interface paths {
          * @description <div class="theme-admonition theme-admonition-info alert alert--warning">
          *       <div class="heading">Warning</div>
          *       <div>This endpoint does not allow to create Web Billing products.</div>
-         *     This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>.
+         *     This endpoint requires the following permission(s): <code>project_configuration:products:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-product"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/virtual_currencies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a list of virtual currencies
+         * @description This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["list-virtual-currencies"];
+        put?: never;
+        /**
+         * Create a virtual currency
+         * @description This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["create-virtual-currency"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/virtual_currencies/{virtual_currency_code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a virtual currency
+         * @description This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        get: operations["get-virtual-currency"];
+        put?: never;
+        /**
+         * Update a virtual currency
+         * @description This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["update-virtual-currency"];
+        /**
+         * Delete a virtual currency
+         * @description This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        delete: operations["delete-virtual-currency"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/virtual_currencies/{virtual_currency_code}/actions/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Archive a virtual currency
+         * @description Archives a virtual currency (makes it inactive).
+         *      This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["archive-virtual-currency"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/virtual_currencies/{virtual_currency_code}/actions/unarchive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Unarchive a virtual currency
+         * @description Unarchives a virtual currency (makes it active).
+         *      This endpoint requires the following permission(s): <code>project_configuration:virtual_currencies:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["unarchive-virtual-currency"];
         delete?: never;
         options?: never;
         head?: never;
@@ -290,18 +680,18 @@ export interface paths {
         };
         /**
          * Get an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-entitlement"];
         put?: never;
         /**
          * Update an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["update-entitlement"];
         /**
          * Delete an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         delete: operations["delete-entitlement"];
         options?: never;
@@ -318,13 +708,13 @@ export interface paths {
         };
         /**
          * Get a list of entitlements
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-entitlements"];
         put?: never;
         /**
          * Create an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-entitlement"];
         delete?: never;
@@ -342,11 +732,53 @@ export interface paths {
         };
         /**
          * Get a list of products attached to a given entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-products-from-entitlement"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/entitlements/{entitlement_id}/actions/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Archive an entitlement
+         * @description Archives an entitlement (makes it inactive).
+         *      This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["archive-entitlement"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/entitlements/{entitlement_id}/actions/unarchive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Unarchive an entitlement
+         * @description Unarchives an entitlement (makes it active).
+         *      This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["unarchive-entitlement"];
         delete?: never;
         options?: never;
         head?: never;
@@ -364,7 +796,7 @@ export interface paths {
         put?: never;
         /**
          * Attach a set of products to an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["attach-products-to-entitlement"];
         delete?: never;
@@ -384,7 +816,7 @@ export interface paths {
         put?: never;
         /**
          * Detach a set of product from an entitlement
-         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:entitlements:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["detach-products-from-entitlement"];
         delete?: never;
@@ -402,20 +834,62 @@ export interface paths {
         };
         /**
          * Get an offering
-         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-offering"];
         put?: never;
         /**
          * Update an offering
-         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["update-offering"];
         /**
          * Delete an offering and its attached packages
-         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         delete: operations["delete-offering"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/offerings/{offering_id}/actions/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Archive an offering
+         * @description Archives an offering (makes it inactive).
+         *      This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["archive-offering"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/offerings/{offering_id}/actions/unarchive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Unarchive an offering
+         * @description Unarchives an offering (makes it active).
+         *      This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
+         */
+        post: operations["unarchive-offering"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -430,13 +904,13 @@ export interface paths {
         };
         /**
          * Get a list of offerings
-         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-offerings"];
         put?: never;
         /**
          * Create an offering
-         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:offerings:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-offering"];
         delete?: never;
@@ -454,18 +928,18 @@ export interface paths {
         };
         /**
          * Get a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-package"];
         put?: never;
         /**
          * Update a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["update-package"];
         /**
          * Delete a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         delete: operations["delete-package-from-offering"];
         options?: never;
@@ -482,13 +956,13 @@ export interface paths {
         };
         /**
          * Get a list of packages in an offering
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["list-packages"];
         put?: never;
         /**
          * Create a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["create-packages"];
         delete?: never;
@@ -506,7 +980,7 @@ export interface paths {
         };
         /**
          * Get a list of products attached to a given package of an offering
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         get: operations["get-products-from-package"];
         put?: never;
@@ -528,7 +1002,7 @@ export interface paths {
         put?: never;
         /**
          * Attach a set of products to a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["attach-products-to-package"];
         delete?: never;
@@ -548,7 +1022,7 @@ export interface paths {
         put?: never;
         /**
          * Detach a set of products from a package
-         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>project_configuration:packages:read_write</code>. This endpoint belongs to the <strong>Project Configuration</strong> domain, which has a default rate limit of <strong>60 requests per minute</strong>.
          */
         post: operations["detach-products-from-package"];
         delete?: never;
@@ -566,7 +1040,7 @@ export interface paths {
         };
         /**
          * Get a subscription
-         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["get-subscription"];
         put?: never;
@@ -585,10 +1059,10 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get a Play Store subscription's transactions
-         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         * Get a Play Store or App Store subscription's transactions
+         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
-        get: operations["get-play-store-subscription-transactions"];
+        get: operations["get-play-store-or-app-store-subscription-transactions"];
         put?: never;
         post?: never;
         delete?: never;
@@ -609,7 +1083,7 @@ export interface paths {
         /**
          * Refund a Play Store subscription's transaction
          * @description Refund a Play Store subscription's transaction. This endpoint does not cancel the subscription or revoke access to it.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>. This endpoint belongs to the <strong>Subscription Transactions Refunds</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["refund-play-store-subscription-transaction"];
         delete?: never;
@@ -628,7 +1102,7 @@ export interface paths {
         /**
          * Get a list of entitlements associated with a subscription
          * @description Lists all Entitlements granted by a Subscription.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-subscription-entitlements"];
         put?: never;
@@ -651,9 +1125,30 @@ export interface paths {
         /**
          * Cancel an active Web Billing subscription
          * @description Cancel an active Web Billing subscription. The customer will lose access to the associated entitlements at the end of the current period.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["cancel-subscription"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/subscriptions/{subscription_id}/actions/extend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Extend the current billing period of a subscription
+         * @description Extend the current billing period of a subscription. Provide either `extend_by_days` to extend by a number of days, or `extend_until_ms` to extend to an absolute epoch-millisecond timestamp. Supported on Apple Store, Google Play Store, and Web Billing subscriptions. For Apple Store subscriptions, `extend_reason_code` is required and the extension is capped at 90 days.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
+         */
+        post: operations["extend-subscription"];
         delete?: never;
         options?: never;
         head?: never;
@@ -672,7 +1167,7 @@ export interface paths {
         /**
          * Refund an active Web Billing subscription
          * @description Cancel a Web Billing subscription by refunding the most recent payment. The customer will immediately lose access to the associated entitlements.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["refund-subscription"];
         delete?: never;
@@ -689,9 +1184,9 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * Get an authenticated Web Billing customer portal URL
+         * Get an authenticated subscription management URL
          * @description Get a secure, single-use URL that allows customers to access their Web Billing customer portal.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["get-authorized-subscription-management-url"];
         put?: never;
@@ -711,7 +1206,7 @@ export interface paths {
         };
         /**
          * Get a list of subscriptions associated with a customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-subscriptions"];
         put?: never;
@@ -731,7 +1226,7 @@ export interface paths {
         };
         /**
          * Get a purchase
-         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["get-purchase"];
         put?: never;
@@ -752,7 +1247,7 @@ export interface paths {
         /**
          * Get a list of entitlements associated with a purchase
          * @description Lists all Entitlements granted by a Purchase.
-         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-purchase-entitlements"];
         put?: never;
@@ -775,7 +1270,7 @@ export interface paths {
         /**
          * Refund a Web Billing purchase
          * @description Refund a Web Billing purchase and revoke access to associated granted entitlements.
-         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["refund-purchase"];
         delete?: never;
@@ -793,7 +1288,7 @@ export interface paths {
         };
         /**
          * Get a list of purchases associated with a customer
-         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-purchases"];
         put?: never;
@@ -813,7 +1308,7 @@ export interface paths {
         };
         /**
          * Get a list of customer's active entitlements
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-customer-active-entitlements"];
         put?: never;
@@ -833,7 +1328,7 @@ export interface paths {
         };
         /**
          * Get a list of the customer's aliases
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-customer-aliases"];
         put?: never;
@@ -853,7 +1348,7 @@ export interface paths {
         };
         /**
          * Get a list of customer's virtual currencies balances
-         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-virtual-currencies-balances"];
         put?: never;
@@ -875,7 +1370,7 @@ export interface paths {
         put?: never;
         /**
          * Create a virtual currencies transaction
-         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>. This endpoint belongs to the <strong>Virtual Currencies - Create Transaction</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["create-virtual-currencies-transaction"];
         delete?: never;
@@ -895,7 +1390,7 @@ export interface paths {
         put?: never;
         /**
          * Update a virtual currencies balance without creating a transaction
-         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:purchases:read_write</code>. This endpoint belongs to the <strong>Virtual Currencies - Create Transaction</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["update-virtual-currencies-balance"];
         delete?: never;
@@ -913,13 +1408,13 @@ export interface paths {
         };
         /**
          * Get a list of the customer's attributes
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-customer-attributes"];
         put?: never;
         /**
          * Set a customer's attributes
-         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:customers:read_write</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         post: operations["set-customer-attributes"];
         delete?: never;
@@ -937,7 +1432,7 @@ export interface paths {
         };
         /**
          * Get a list of the customer's invoices
-         * @description This endpoint requires the following permission(s): <code>customer_information:invoices:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:invoices:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["list-customer-invoices"];
         put?: never;
@@ -957,7 +1452,7 @@ export interface paths {
         };
         /**
          * Get an invoice
-         * @description This endpoint requires the following permission(s): <code>customer_information:invoices:read</code>.
+         * @description This endpoint requires the following permission(s): <code>customer_information:invoices:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["get-invoice"];
         put?: never;
@@ -977,9 +1472,128 @@ export interface paths {
         };
         /**
          * Get overview metrics for a project
-         * @description This endpoint requires the following permission(s): <code>charts_metrics:overview:read</code>.
+         * @description This endpoint requires the following permission(s): <code>charts_metrics:overview:read</code>. This endpoint belongs to the <strong>Charts & Metrics</strong> domain, which has a default rate limit of <strong>15 requests per minute</strong>.
          */
         get: operations["get-overview-metrics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/metrics/revenue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get revenue for a project
+         * @description Returns the total revenue for the project across all of its apps for the
+         *     given inclusive date range `[start_date, end_date]`. The value is expressed
+         *     in the project's primary currency unless `currency` is provided.
+         *
+         *     This endpoint is backed by the same realtime (v3) revenue chart that powers
+         *     the dashboard. It is intended for cases where an app needs an authoritative
+         *     revenue total without inferring it from the transaction list.
+         *
+         *     Note that the most recent day in the range may be partial if it includes
+         *     today, since transactions for today are still arriving.
+         *      This endpoint requires the following permission(s): <code>charts_metrics:overview:read</code>. This endpoint belongs to the <strong>Charts & Metrics</strong> domain, which has a default rate limit of <strong>15 requests per minute</strong>.
+         */
+        get: operations["get-revenue-metric"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/charts/{chart_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get chart data
+         * @description Returns time-series data for a specific chart.
+         *
+         *     **Response Structure**
+         *
+         *     The response includes:
+         *     - Chart metadata (category, display_name, description)
+         *     - Time boundaries (start_date, end_date, last_computed_at)
+         *     - Data values (array of data points)
+         *     - Summary statistics
+         *     - Segment information (when segmented)
+         *
+         *     **Chart Types**
+         *
+         *     Different charts may return data in slightly different formats:
+         *     - Standard charts: values as arrays of data points with timestamps
+         *     - Cohort charts: values include cohort-specific data structures
+         *     - Segmented charts: include segment information in the response
+         *
+         *     **Filtering and Segmentation**
+         *
+         *     Use the `/charts/{chart_name}/options` endpoint to discover available
+         *     filters and segments for a specific chart before making requests.
+         *
+         *     Filter parameters vary by chart and can be passed as additional query parameters.
+         *
+         *     **Aggregation**
+         *
+         *     Use `aggregate` to request summary-only output for supported charts.
+         *     When `aggregate` is provided, `values` is returned as an empty array and
+         *     `summary` includes only the requested aggregate operations.
+         *
+         *     **Incomplete data**
+         *     For the most recent periods, data may be flagged as incomplete, and may not be appropriate to use for analysis.
+         *      This endpoint requires the following permission(s): <code>charts_metrics:charts:read</code>. This endpoint belongs to the <strong>Charts & Metrics</strong> domain, which has a default rate limit of <strong>15 requests per minute</strong>.
+         */
+        get: operations["get-chart-data"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/projects/{project_id}/charts/{chart_name}/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get available options for a chart
+         * @description Returns configuration options for a specific chart.
+         *
+         *     Use this endpoint to discover:
+         *     - **Resolutions**: Available time granularities (day, week, month, etc.)
+         *     - **Segments**: Dimensions you can segment the data by (country, store, product, etc.)
+         *     - **Filters**: Available filters and their possible values
+         *
+         *     The options returned are specific to the chart and may vary based on
+         *     your project's data and configuration.
+         *
+         *     **Usage**
+         *
+         *     Call this endpoint before requesting chart data to:
+         *     1. Build dynamic filter UIs
+         *     2. Validate parameters before making chart data requests
+         *     3. Discover available dimensions for analysis
+         *     . This endpoint requires the following permission(s): <code>charts_metrics:charts:read</code>. This endpoint belongs to the <strong>Charts & Metrics</strong> domain, which has a default rate limit of <strong>15 requests per minute</strong>.
+         */
+        get: operations["get-chart-options"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1000,7 +1614,7 @@ export interface paths {
          * @description Search for a subscription by any of its associated `store_subscription_identifier` values, whether from a past or current subscription period.
          *
          *     For example, this may include the `transactionId` of any transaction in an Apple App Store subscription, or any order ID from a Google Play Store subscription.
-         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:subscriptions:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["search-subscriptions"];
         put?: never;
@@ -1023,7 +1637,7 @@ export interface paths {
          * @description Search for a one-time purchases by any of its associated `store_purchase_identifier` values.
          *
          *     For example, this may include the `transactionId` of any transaction in an Apple App Store purchase, or any order ID from a Google Play Store purchase.
-         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>.
+         *      This endpoint requires the following permission(s): <code>customer_information:purchases:read</code>. This endpoint belongs to the <strong>Customer Information</strong> domain, which has a default rate limit of <strong>480 requests per minute</strong>.
          */
         get: operations["search-purchases"];
         put?: never;
@@ -1046,8 +1660,17 @@ export interface components {
             };
         };
         AmazonAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "amazon";
             /** @description Amazon type details. Should only be used when type is amazon. */
-            amazon?: {
+            amazon: {
                 /** @description The package name of the app */
                 package_name: string;
                 /** @description Your Amazon Developer Identity Shared Key */
@@ -1080,33 +1703,43 @@ export interface components {
              * @example app_store
              * @enum {string}
              */
-            type: "amazon" | "app_store" | "mac_app_store" | "play_store" | "stripe" | "rc_billing" | "roku" | "paddle";
+            type: "amazon" | "app_store" | "mac_app_store" | "play_store" | "stripe" | "rc_billing" | "roku" | "paddle" | "test_store";
             /**
              * @description The id of the project
              * @example proj1a2b3c4
              */
             project_id: string;
         } & components["schemas"]["AmazonApp"] & components["schemas"]["AppStoreApp"] & components["schemas"]["MacAppStoreApp"] & components["schemas"]["PlayStoreApp"] & components["schemas"]["StripeApp"] & components["schemas"]["RCBillingApp"] & components["schemas"]["RokuApp"] & components["schemas"]["PaddleApp"]);
-        AppCreate: {
-            /** @description The name of the app */
-            name: string;
-            /**
-             * @description The platform of the app.
-             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
-             * @enum {string}
-             */
-            type: "amazon" | "app_store" | "mac_app_store" | "play_store" | "stripe" | "rc_billing" | "roku" | "paddle";
-        } & components["schemas"]["AmazonAppCreate"] & components["schemas"]["AppStoreAppCreate"] & components["schemas"]["MacAppStoreAppCreate"] & components["schemas"]["PlayStoreAppCreate"] & components["schemas"]["StripeAppCreate"] & components["schemas"]["RCBillingAppCreate"] & components["schemas"]["RokuAppCreate"] & components["schemas"]["PaddleAppCreate"];
+        AppCreate: components["schemas"]["AmazonAppCreate"] | components["schemas"]["AppStoreAppCreate"] | components["schemas"]["MacAppStoreAppCreate"] | components["schemas"]["PlayStoreAppCreate"] | components["schemas"]["StripeAppCreate"] | components["schemas"]["RCBillingAppCreate"] | components["schemas"]["RokuAppCreate"] | components["schemas"]["PaddleAppCreate"];
         AppStoreApp: {
             /** @description App Store type details */
             app_store?: {
                 /** @description The bundle ID of the app */
                 bundle_id: string;
+                /**
+                 * @description Whether App Store Connect API key credentials are configured.
+                 * @example true
+                 */
+                app_store_connect_api_key_configured: boolean;
+                /**
+                 * @description Whether In-App Purchase subscription key credentials are configured.
+                 * @example true
+                 */
+                subscription_key_configured: boolean;
             };
         };
         AppStoreAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "app_store";
             /** @description App Store type details. Should only be used when type is app_store. */
-            app_store?: {
+            app_store: {
                 /** @description The bundle ID of the app */
                 bundle_id: string;
                 /** @description The shared secret of the app */
@@ -1121,6 +1754,66 @@ export interface components {
                 subscription_key_id?: string;
                 /** @description The key Issuer id. See instructions on how to obtain this in: https://www.revenuecat.com/docs/in-app-purchase-key-configuration#3-providing-the-issuer-id-to-revenuecat */
                 subscription_key_issuer?: string;
+                /**
+                 * @description App Store Connect API Key downloaded from App Store Connect in PEM format. Copy the contents
+                 *     of the file in this field. This is optional and used for advanced features like product imports.
+                 */
+                app_store_connect_api_key?: string;
+                /** @description App Store Connect API Key ID. The ID of the downloaded API key. You can get it from App Store Connect. */
+                app_store_connect_api_key_id?: string;
+                /** @description App Store Connect API Key Issuer ID. */
+                app_store_connect_api_key_issuer?: string;
+                /** @description Your vendor number from App Store Connect. Required for some features like financial reports. */
+                app_store_connect_vendor_number?: string;
+            };
+        };
+        AuditLog: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "audit_log";
+            /** @example log1ab2c3d4e5 */
+            id: string;
+            /**
+             * @description ID of the project to which the audit log belongs.
+             * @example proj1ab2c3d4
+             */
+            project_id: string;
+            /**
+             * @description Action that was performed.
+             * @example project_name_updated
+             */
+            action_type: string;
+            /**
+             * @description Type of the target on which the action was performed.
+             * @example project
+             */
+            target_type: string;
+            /**
+             * @description Identifier of the action target.
+             * @example proj1ab2c3d4
+             */
+            target_identifier: string;
+            /**
+             * @description Type of actor that performed the action.
+             * @enum {string}
+             */
+            actor_type: "user" | "system" | "api_key" | "oauth_client";
+            /**
+             * @description Identifier of the actor that performed the action.
+             * @example user_abc123
+             */
+            actor_identifier: string;
+            /**
+             * Format: int64
+             * @description Timestamp when the action occurred, in milliseconds since epoch.
+             * @example 1713297600000
+             */
+            occurred_at: number;
+            /** @description Additional metadata associated with the audit log. */
+            additional_data: {
+                [key: string]: unknown;
             };
         };
         AuthenticatedManagementUrl: {
@@ -1130,17 +1823,278 @@ export interface components {
              */
             object: "authenticated_management_url";
             /**
-             * @description A secure, single-use URL that provides temporary access to the customer portal for a specific customer. This URL can only be used once and expires after use.
+             * @description A secure URL that provides temporary access to the subscription management portal. For RC Billing subscriptions, this is a single-use magic link to the RevenueCat customer portal. For Paddle subscriptions, this is a short-lived authenticated Paddle Customer Portal URL when the API key has the Customer portal session (Write) permission and Paddle returns the required management URLs; otherwise a non-authenticated URL (customer signs in via email) or `null` if no URL can be generated.
              * @example https://billing.revenuecat.com/app1a2b3c4/sub1ab2c3d4e5?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
              */
-            management_url: string;
+            management_url: string | null;
+        };
+        /** @description A chart annotation marking a significant event on charts. */
+        ChartAnnotation: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @example chart_annotation
+             * @enum {string}
+             */
+            object: "chart_annotation";
+            /**
+             * @description The ID of the chart annotation.
+             * @example chartannot1a2b3c
+             */
+            id: string;
+            /**
+             * @description Human-readable description of the event this annotation represents.
+             * @example App version 2.0 released
+             */
+            description: string;
+            /**
+             * Format: date
+             * @description The start date of the annotated period (ISO 8601 date format).
+             * @example 2024-01-15
+             */
+            start_date: string;
+            /**
+             * Format: date
+             * @description The end date of the annotated period (ISO 8601 date format), or null if the annotation is a single-day event.
+             * @example 2024-01-20
+             */
+            end_date: string | null;
+        };
+        /** @description Chart data response containing time-series data and metadata */
+        ChartData: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "chart_data";
+            /**
+             * @description Category the chart belongs to
+             * @example revenue
+             */
+            category: string;
+            /**
+             * @description Type of chart visualization
+             * @example line
+             */
+            display_type: string;
+            /**
+             * @description Human-readable name of the chart
+             * @example Revenue
+             */
+            display_name: string;
+            /** @description Description of what the chart shows */
+            description: string;
+            /** @description Link to documentation for this chart */
+            documentation_link?: string | null;
+            /**
+             * Format: int64
+             * @description Timestamp when the chart data was last computed (ms since epoch)
+             */
+            last_computed_at?: number | null;
+            /**
+             * Format: int64
+             * @description Start date of the data range (ms since epoch)
+             */
+            start_date?: number | null;
+            /**
+             * Format: int64
+             * @description End date of the data range (ms since epoch)
+             */
+            end_date?: number | null;
+            /**
+             * @description Currency used for monetary values
+             * @example USD
+             */
+            yaxis_currency?: string;
+            /** @description Whether filtering is allowed for this chart */
+            filtering_allowed?: boolean;
+            /** @description Whether segmentation is allowed for this chart */
+            segmenting_allowed?: boolean;
+            /**
+             * @description Time resolution of the data points
+             * @example day
+             * @enum {string}
+             */
+            resolution: "day" | "week" | "month" | "quarter" | "year";
+            /** @description Chart data points. Structure varies by chart type - can be arrays of numbers or objects with timestamps and values. Returned as an empty array when aggregate operations are requested. */
+            values: ((number | null)[] | {
+                [key: string]: unknown;
+            })[];
+            /** @description Summary statistics for the chart data */
+            summary?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @description Y-axis configuration including unit
+             * @example $
+             */
+            yaxis: string;
+            /** @description Segment information when data is segmented */
+            segments?: {
+                id?: string;
+                display_name?: string;
+            }[] | null;
+            /** @description Maximum number of segments returned */
+            segments_limit?: number | null;
+            /** @description Measure definitions for the chart (v3 charts) */
+            measures?: {
+                [key: string]: unknown;
+            }[] | null;
+            /** @description Currently selected values for user-configurable selectors (keyed by selector name) */
+            user_selectors?: {
+                [key: string]: string;
+            } | null;
+            /** @description Parameters that were provided but not supported */
+            unsupported_params?: {
+                filters?: string[];
+                segment?: string | null;
+            } | null;
+            /** @description Chart annotations for the project, filtered to the chart's date window. Only present when include_annotations=true is passed in the request. */
+            annotations?: components["schemas"]["ChartAnnotation"][];
+        };
+        /** @description A filter option for a chart */
+        ChartFilterOption: {
+            /**
+             * @description Unique identifier for the filter
+             * @example country
+             */
+            id: string;
+            /**
+             * @description Human-readable name for the filter
+             * @example Country
+             */
+            display_name: string;
+            /**
+             * @description Group name for organizing filter options
+             * @example Geography
+             */
+            group_display_name?: string | null;
+            /** @description Available values for this filter */
+            options: ({
+                /**
+                 * @description Unique identifier for the option value
+                 * @example US
+                 */
+                id: string;
+                /**
+                 * @description Human-readable name for the option value
+                 * @example United States
+                 */
+                display_name: string;
+            } & {
+                [key: string]: unknown;
+            })[];
+        };
+        /** @description Available options for filtering and segmenting a chart */
+        ChartOptions: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "chart_options";
+            /**
+             * @description Available time resolutions for the chart
+             * @example [
+             *       {
+             *         "id": "0",
+             *         "display_name": "day"
+             *       },
+             *       {
+             *         "id": "1",
+             *         "display_name": "week"
+             *       },
+             *       {
+             *         "id": "2",
+             *         "display_name": "month"
+             *       }
+             *     ]
+             */
+            resolutions: {
+                /** @description Resolution ID to use in requests */
+                id: string;
+                /** @description Human-readable name */
+                display_name: string;
+            }[];
+            /** @description Available segmentation options */
+            segments: components["schemas"]["ChartSegmentOption"][];
+            /** @description Available filter options */
+            filters: components["schemas"]["ChartFilterOption"][];
+            /** @description User-configurable selectors for the chart (keyed by selector name) */
+            user_selectors?: {
+                [key: string]: {
+                    /** @description Default value for the selector */
+                    default?: string;
+                    /** @description Human-readable name */
+                    display_name?: string;
+                    options?: {
+                        id: string;
+                        display_name: string;
+                    }[];
+                };
+            } | null;
+        };
+        /** @description A segmentation option for a chart */
+        ChartSegmentOption: {
+            /**
+             * @description Unique identifier for the segment option
+             * @example country
+             */
+            id: string;
+            /**
+             * @description Human-readable name for the segment option
+             * @example Country
+             */
+            display_name: string;
+            /**
+             * @description Group name for organizing segment options
+             * @example Geography
+             */
+            group_display_name?: string | null;
+        };
+        Collaborator: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "collaborator";
+            /**
+             * @description The id of the collaborator
+             * @example collab1a2b3c4d5
+             */
+            id: string;
+            /**
+             * @description The name of the collaborator
+             * @example John Doe
+             */
+            name?: string | null;
+            /**
+             * Format: email
+             * @description The email address of the collaborator
+             * @example john.doe@example.com
+             */
+            email: string;
+            /**
+             * @description The role of the collaborator
+             * @example admin
+             */
+            role: string;
+            /**
+             * Format: int64
+             * @description The date when the collaborator accepted the invitation in ms since epoch
+             * @example 1658399423658
+             */
+            accepted_at: number | null;
+            /**
+             * @description Whether the collaborator has 2FA enabled
+             * @example true
+             */
+            has_mfa: boolean;
         };
         /**
          * @description The country that the object is associated with, in ISO alpha 2 code
          * @example US
          * @enum {string|null}
          */
-        Country: string | null;
+        Country: null | "AF" | "AL" | "DZ" | "AS" | "AD" | "AO" | "AI" | "AQ" | "AG" | "AR" | "AM" | "AW" | "AU" | "AT" | "AZ" | "BS" | "BH" | "BD" | "BB" | "BY" | "BE" | "BZ" | "BJ" | "BM" | "BT" | "BO" | "BQ" | "BA" | "BW" | "BV" | "BR" | "IO" | "BN" | "BG" | "BF" | "BI" | "CV" | "KH" | "CM" | "CA" | "KY" | "CF" | "TD" | "CL" | "CN" | "CX" | "CC" | "CO" | "KM" | "CD" | "CG" | "CK" | "CR" | "HR" | "CU" | "CW" | "CY" | "CZ" | "CI" | "DK" | "DJ" | "DM" | "DO" | "EC" | "EG" | "SV" | "GQ" | "ER" | "EE" | "SZ" | "ET" | "FK" | "FO" | "FJ" | "FI" | "FR" | "GF" | "PF" | "TF" | "GA" | "GM" | "GE" | "DE" | "GH" | "GI" | "GR" | "GL" | "GD" | "GP" | "GU" | "GT" | "GG" | "GN" | "GW" | "GY" | "HT" | "HM" | "VA" | "HN" | "HK" | "HU" | "IS" | "IN" | "ID" | "IR" | "IQ" | "IE" | "IM" | "IL" | "IT" | "JM" | "JP" | "JE" | "JO" | "KZ" | "KE" | "KI" | "KP" | "KR" | "KW" | "KG" | "LA" | "LV" | "LB" | "LS" | "LR" | "LY" | "LI" | "LT" | "LU" | "MO" | "MG" | "MW" | "MY" | "MV" | "ML" | "MT" | "MH" | "MQ" | "MR" | "MU" | "YT" | "MX" | "FM" | "MD" | "MC" | "MN" | "ME" | "MS" | "MA" | "MZ" | "MM" | "NA" | "NR" | "NP" | "NL" | "NC" | "NZ" | "NI" | "NE" | "NG" | "NU" | "NF" | "MP" | "NO" | "OM" | "PK" | "PW" | "PS" | "PA" | "PG" | "PY" | "PE" | "PH" | "PN" | "PL" | "PT" | "PR" | "QA" | "MK" | "RO" | "RU" | "RW" | "RE" | "BL" | "SH" | "KN" | "LC" | "MF" | "PM" | "VC" | "WS" | "SM" | "ST" | "SA" | "SN" | "RS" | "SC" | "SL" | "SG" | "SX" | "SK" | "SI" | "SB" | "SO" | "ZA" | "GS" | "SS" | "ES" | "LK" | "SD" | "SR" | "SJ" | "SE" | "CH" | "SY" | "TW" | "TJ" | "TZ" | "TH" | "TL" | "TG" | "TK" | "TO" | "TT" | "TN" | "TR" | "TM" | "TC" | "TV" | "UG" | "UA" | "AE" | "GB" | "UM" | "US" | "UY" | "UZ" | "VU" | "VE" | "VN" | "VG" | "VI" | "WF" | "EH" | "YE" | "ZM" | "ZW" | "AX";
         /** @description In-app purchase products do not require any additional information */
         CreateAppStoreConnectInAppPurchaseInput: Record<string, never>;
         CreateAppStoreConnectSubscriptionInput: {
@@ -1154,12 +2108,42 @@ export interface components {
             /** @description The ID of the subscription group (optional) */
             subscription_group_id?: string | null;
         };
+        CreateWebhookIntegrationInput: {
+            /**
+             * @description The display name of the webhook integration
+             * @example Customer updates webhook
+             */
+            name: string;
+            /**
+             * Format: uri
+             * @description The URL RevenueCat will send webhook notifications to
+             * @example https://hooks.example.com/revenuecat
+             */
+            url: string;
+            /**
+             * @description Optional authorization header that will be sent with webhook notifications
+             * @example Bearer 123456
+             */
+            authorization_header?: string | null;
+            /**
+             * @description The environment the webhook integration is configured for
+             * @enum {string|null}
+             */
+            environment?: "production" | "sandbox" | null;
+            /** @description Event types that will trigger the webhook */
+            event_types?: components["schemas"]["WebhookEventType"][] | null;
+            /**
+             * @description The ID of the app the webhook integration is scoped to
+             * @example app_1234567890abcdef
+             */
+            app_id?: string | null;
+        };
         /**
          * @description ISO 4217 currency code
          * @example USD
          * @enum {string}
          */
-        Currency: string;
+        Currency: "AED" | "AFN" | "ALL" | "AMD" | "ANG" | "AOA" | "ARS" | "AUD" | "AWG" | "AZN" | "BAM" | "BBD" | "BDT" | "BGN" | "BHD" | "BIF" | "BMD" | "BND" | "BOB" | "BRL" | "BSD" | "BTC" | "BTN" | "BWP" | "BYN" | "BZD" | "CAD" | "CDF" | "CHF" | "CLF" | "CLP" | "CNH" | "CNY" | "COP" | "CRC" | "CUC" | "CUP" | "CVE" | "CZK" | "DJF" | "DKK" | "DOP" | "DZD" | "EGP" | "ERN" | "ETB" | "EUR" | "FJD" | "FKP" | "GBP" | "GEL" | "GGP" | "GHS" | "GIP" | "GMD" | "GNF" | "GTQ" | "GYD" | "HKD" | "HNL" | "HRK" | "HTG" | "HUF" | "IDR" | "ILS" | "IMP" | "INR" | "IQD" | "IRR" | "ISK" | "JEP" | "JMD" | "JOD" | "JPY" | "KES" | "KGS" | "KHR" | "KMF" | "KPW" | "KRW" | "KWD" | "KYD" | "KZT" | "LAK" | "LBP" | "LKR" | "LRD" | "LSL" | "LYD" | "MAD" | "MDL" | "MGA" | "MKD" | "MMK" | "MNT" | "MOP" | "MRU" | "MUR" | "MVR" | "MWK" | "MXN" | "MYR" | "MZN" | "NAD" | "NGN" | "NIO" | "NOK" | "NPR" | "NZD" | "OMR" | "PAB" | "PEN" | "PGK" | "PHP" | "PKR" | "PLN" | "PYG" | "QAR" | "RON" | "RSD" | "RUB" | "RWF" | "SAR" | "SBD" | "SCR" | "SDG" | "SEK" | "SGD" | "SHP" | "SLL" | "SOS" | "SRD" | "SSP" | "STD" | "STN" | "SVC" | "SYP" | "SZL" | "THB" | "TJS" | "TMT" | "TND" | "TOP" | "TRY" | "TTD" | "TWD" | "TZS" | "UAH" | "UGX" | "USD" | "UYU" | "UZS" | "VEF" | "VES" | "VND" | "VUV" | "WST" | "XAF" | "XAG" | "XAU" | "XCD" | "XDR" | "XOF" | "XPD" | "XPF" | "XPT" | "YER" | "ZAR" | "ZMW" | "ZWL";
         Customer: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1254,7 +2238,22 @@ export interface components {
          * @example $email
          * @enum {string}
          */
-        CustomerAttributeReservedName: string;
+        CustomerAttributeReservedName: "$ad" | "$adGroup" | "$adjustId" | "$airbridgeDeviceId" | "$airshipChannelId" | "$amazonAdId" | "$amplitudeDeviceId" | "$amplitudeUserId" | "$appleRefundHandlingPreference" | "$appleAdsAdGroupId" | "$appleAdsCampaignId" | "$appleAdsKeywordId" | "$apnsTokens" | "$appsflyerId" | "$appsflyerSharingFilter" | "$attConsentStatus" | "$branchId" | "$brazeAliasLabel" | "$brazeAliasName" | "$campaign" | "$clevertapId" | "$creative" | "$customerioId" | "$displayName" | "$email" | "$fbAnonId" | "$fcmTokens" | "$firebaseAppInstanceId" | "$gpsAdId" | "$idfa" | "$idfv" | "$ip" | "$iterableCampaignId" | "$iterableTemplateId" | "$iterableUserId" | "$keyword" | "$kochavaDeviceId" | "$mediaSource" | "$mixpanelDistinctId" | "$mparticleId" | "$onesignalId" | "$onesignalUserId" | "$phoneNumber" | "$posthogUserId" | "$telemetryDeckUserId" | "$telemetryDeckAppId" | "telemetry_deck_user_id" | "telemetry_deck_app_id" | "$segmentId" | "$solarEngineDistinctId" | "$solarEngineAccountId" | "$solarEngineVisitorId" | "$tenjinId" | "$deviceVersion";
+        CustomerCenterConfig: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @example customer_center_config
+             * @enum {string}
+             */
+            object: "customer_center_config";
+            /**
+             * @description The Customer Center configuration. When no platform is specified, contains the full configuration for all platforms and locales. When a platform is specified, contains the processed configuration for that platform and locale.
+             * @example {}
+             */
+            customer_center: {
+                [key: string]: unknown;
+            };
+        };
         CustomerEntitlement: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1278,7 +2277,7 @@ export interface components {
              * @description The type of the deleted object
              * @enum {string}
              */
-            object: "app" | "customer" | "entitlement" | "offering" | "package" | "product";
+            object: "app" | "chart_annotation" | "customer" | "discount" | "entitlement" | "experiment" | "offering" | "package" | "paywall" | "product" | "virtual_currency" | "webhook_integration";
             /** @description The ID of the deleted object */
             id: string;
             /**
@@ -1288,9 +2287,21 @@ export interface components {
              */
             deleted_at: number;
         };
+        /**
+         * @description The duration of the product subscription. This field is only supported for the test store and it is ignored for other stores.
+         * @example P1W
+         * @enum {string}
+         */
+        Duration: "P1W" | "P1M" | "P2M" | "P3M" | "P6M" | "P1Y";
         /** @enum {string} */
         EligibilityCriteria: "all" | "google_sdk_lt_6" | "google_sdk_ge_6";
         Entitlement: {
+            /**
+             * @description Whether the entitlement is active or inactive (archived).
+             * @example active
+             * @enum {string}
+             */
+            state: "active" | "inactive";
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -1346,12 +2357,25 @@ export interface components {
                 url: string;
             } | null;
         };
+        /** @description Error returned when attempting to make an entity active, but that entity references other entities that are currently inactive (archived). The `referenced_object_ids` field lists the IDs of the inactive entities that must be made active first. */
+        EntityReferencesArchivedEntitiesError: components["schemas"]["Error"] & {
+            /** @enum {string} */
+            type?: "entity_references_archived_entities";
+            /**
+             * @description The IDs of the archived (inactive) entities that need to be made active before this operation can succeed.
+             * @example [
+             *       "prodabcd1234",
+             *       "prodwxyz5678"
+             *     ]
+             */
+            referenced_object_ids: string[];
+        };
         /**
          * @description The store environment
          * @example production
          * @enum {string}
          */
-        Environment: string;
+        Environment: "production" | "sandbox";
         Error: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1364,7 +2388,7 @@ export interface components {
              * @example parameter_error
              * @enum {string}
              */
-            type: "parameter_error" | "resource_already_exists" | "resource_missing" | "idempotency_error" | "rate_limit_error" | "authentication_error" | "authorization_error" | "store_error" | "server_error" | "resource_locked_error" | "unprocessable_entity_error" | "invalid_request";
+            type: "parameter_error" | "resource_already_exists" | "resource_missing" | "idempotency_error" | "rate_limit_error" | "authentication_error" | "authorization_error" | "store_error" | "server_error" | "resource_locked_error" | "unprocessable_entity_error" | "invalid_request" | "entity_references_archived_entities";
             /**
              * @description If the error is parameter-specific, the parameter related to the error
              * @example customer_id
@@ -1390,6 +2414,14 @@ export interface components {
              * @example null
              */
             backoff_ms?: number | null;
+            /**
+             * @description The IDs of related objects relevant to the error, such as the archived entities that need to be made active before the operation can succeed.
+             * @example [
+             *       "prodabcd1234",
+             *       "prodwxyz5678"
+             *     ]
+             */
+            referenced_object_ids?: string[];
         };
         ExperimentEnrollment: {
             /**
@@ -1405,6 +2437,39 @@ export interface components {
              */
             variant: string;
         } | null;
+        ExtendSubscriptionByDuration: {
+            /**
+             * @description Number of days to extend the current billing period by.
+             *     For Apple Store subscriptions, the maximum allowed value is 90.
+             * @example 14
+             */
+            extend_by_days: number;
+            /**
+             * @description Reason for the extension. Required for Apple Store subscriptions;
+             *     ignored for Google Play and Web Billing subscriptions.
+             * @example customer_satisfaction
+             * @enum {string}
+             */
+            extend_reason_code?: "undeclared" | "customer_satisfaction" | "other" | "service_issue_or_outage";
+        };
+        ExtendSubscriptionUntilDate: {
+            /**
+             * Format: int64
+             * @description Absolute epoch timestamp (in milliseconds) to which the current billing
+             *     period should be extended. Must be after the subscription's current
+             *     `current_period_ends_at`. For Apple Store subscriptions, the resulting
+             *     extension cannot exceed 90 days.
+             * @example 1735689600000
+             */
+            extend_until_ms: number;
+            /**
+             * @description Reason for the extension. Required for Apple Store subscriptions;
+             *     ignored for Google Play and Web Billing subscriptions.
+             * @example customer_satisfaction
+             * @enum {string}
+             */
+            extend_reason_code?: "undeclared" | "customer_satisfaction" | "other" | "service_issue_or_outage";
+        };
         Invoice: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -1485,6 +2550,46 @@ export interface components {
             /**
              * @description The URL where this list can be accessed.
              * @example /v2/projects/projec1a2b3c4d/apps
+             */
+            url: string;
+        };
+        /** AuditLogList */
+        ListAuditLogs: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Details about each audit log. */
+            items: components["schemas"]["AuditLog"][];
+            /**
+             * @description URL to access the next page of the project's audit logs. If not present / null, there is no next page.
+             * @example /v2/projects/proj1ab2c3d4/audit_logs?starting_after=log1ab2c3d4e5
+             */
+            next_page: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/audit_logs
+             */
+            url: string;
+        };
+        /** CollaboratorList */
+        ListCollaborators: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Details about each object. */
+            items: components["schemas"]["Collaborator"][];
+            /**
+             * @description URL to access the next page of the project's collaborators. If not present / null, there is no next page
+             * @example /v2/projects/proj1ab2c3d4/collaborators?starting_after=collab1a2b3c4d5
+             */
+            next_page: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/collaborators
              */
             url: string;
         };
@@ -1651,6 +2756,26 @@ export interface components {
              */
             url: string;
         };
+        /** PaywallList */
+        ListPaywalls: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Details about each object. */
+            items: components["schemas"]["Paywall"][];
+            /**
+             * @description URL to access the next page of the project's paywalls. If not present / null, there is no next page
+             * @example /v2/projects/proj1ab2c3d4/paywalls?starting_after=pwXXXXXXXXXXXXXX
+             */
+            next_page: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/paywalls
+             */
+            url: string;
+        };
         /** ProductList */
         ListProducts: {
             /**
@@ -1771,6 +2896,26 @@ export interface components {
              */
             url: string;
         };
+        /** VirtualCurrencyList */
+        ListVirtualCurrencies: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Details about each object. */
+            items: components["schemas"]["VirtualCurrency"][];
+            /**
+             * @description URL to access the next page of the project's virtual currencies. If not present / null, there is no next page
+             * @example /v2/projects/proj1ab2c3d4/virtual_currencies?starting_after=GLD
+             */
+            next_page: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/virtual_currencies
+             */
+            url: string;
+        };
         /** VirtualCurrenciesBalancesList */
         ListVirtualCurrenciesBalances: {
             /**
@@ -1791,6 +2936,27 @@ export interface components {
              */
             url: string;
         };
+        /** WebhookIntegrationList */
+        ListWebhookIntegrations: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the
+             *     same value.
+             * @enum {string}
+             */
+            object: "list";
+            /** @description Webhook integrations configured for the project. */
+            items: components["schemas"]["WebhookIntegration"][];
+            /**
+             * @description URL to access the next page of webhook integrations. If not present / null, there is no next page
+             * @example /v2/projects/proj1ab2c3d4/integrations/webhooks?starting_after=whintgr1a2b3c4d
+             */
+            next_page?: string | null;
+            /**
+             * @description The URL where this list can be accessed.
+             * @example /v2/projects/proj1ab2c3d4/integrations/webhooks
+             */
+            url: string;
+        };
         MacAppStoreApp: {
             /** @description Legacy Mac App Store type details */
             mac_app_store?: {
@@ -1799,13 +2965,124 @@ export interface components {
             };
         };
         MacAppStoreAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "mac_app_store";
             /** @description Mac App Store type details. Should only be used when type is mac_app_store. */
-            mac_app_store?: {
+            mac_app_store: {
                 /** @description The bundle ID of the app */
                 bundle_id: string;
                 /** @description The shared secret of the app */
                 shared_secret?: string;
             };
+        };
+        MediaAsset: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @example media_asset
+             * @enum {string}
+             */
+            object: "media_asset";
+            /**
+             * @description The ID of the media asset.
+             * @example mediaasset123456789abcdef
+             */
+            id: string;
+            /**
+             * @description The storage object name for the original asset.
+             * @example paywalls/originals/abc123.webp
+             */
+            object_name: string;
+            /**
+             * @description The uploaded file name.
+             * @example hero.webp
+             */
+            original_name: string;
+            /**
+             * Format: int64
+             * @description The original file size in kilobytes.
+             * @example 12345
+             */
+            original_size: number;
+            /**
+             * @description The original image width in pixels.
+             * @example 1024
+             */
+            original_width: number | null;
+            /**
+             * @description The original image height in pixels.
+             * @example 1024
+             */
+            original_height: number | null;
+            /** @description Rendered image formats keyed by format name. */
+            formats: {
+                [key: string]: components["schemas"]["MediaAssetFormat"];
+            } | null;
+            /**
+             * @description Alt text for the asset.
+             * @example A dog looking at a phone
+             */
+            alt_text: string | null;
+            /**
+             * @description Whether this asset is decorative.
+             * @example false
+             */
+            is_decorative: boolean;
+            /**
+             * @description The base URL where asset object names can be resolved.
+             * @example https://paywalls-assets.revenuecat.com
+             */
+            asset_base_url: string | null;
+            /**
+             * @description The media asset type.
+             * @example image
+             * @enum {string}
+             */
+            asset_type: "image" | "video";
+            /** @description Video metadata, if this is a video asset. */
+            video_metadata: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @description The video transcoding status, if this is a video asset.
+             * @example null
+             */
+            transcoding_status: string | null;
+        };
+        MediaAssetFormat: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @example media_asset_format
+             * @enum {string}
+             */
+            object: "media_asset_format";
+            /**
+             * @description The storage object name for this rendered asset format.
+             * @example paywalls/abc123.webp
+             */
+            object_name: string;
+            /**
+             * Format: int64
+             * @description The file size in kilobytes.
+             * @example 12345
+             */
+            size: number;
+            /**
+             * @description The image width in pixels.
+             * @example 1024
+             */
+            width: number | null;
+            /**
+             * @description The image height in pixels.
+             * @example 1024
+             */
+            height: number | null;
         };
         MonetaryAmount: {
             currency: components["schemas"]["Currency"];
@@ -1831,6 +3108,12 @@ export interface components {
             proceeds: number;
         };
         Offering: {
+            /**
+             * @description Whether the offering is active or inactive (archived). Inactive offerings are not returned by the SDK.
+             * @example active
+             * @enum {string}
+             */
+            state: "active" | "inactive";
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -1967,7 +3250,7 @@ export interface components {
          * @example purchased
          * @enum {string}
          */
-        Ownership: string;
+        Ownership: "purchased" | "family_shared";
         Package: {
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -2042,6 +3325,15 @@ export interface components {
             };
         };
         PaddleAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "paddle";
             /** @description Paddle Billing details. Should only be used when type is paddle. */
             paddle?: {
                 /** @description Paddle Server-side API key provided on the Paddle dashboard. */
@@ -2075,7 +3367,7 @@ export interface components {
              * @description The ID of the offering the paywall is for.
              * @example ofrng123456789a
              */
-            offering_id: string;
+            offering_id: string | null;
             /**
              * Format: int64
              * @description The date the paywall was created at in ms since epoch
@@ -2088,7 +3380,91 @@ export interface components {
              * @example 1658399423958
              */
             published_at: number | null;
+            /**
+             * @description Whether font sizes should automatically scale for this paywall.
+             * @default true
+             * @example true
+             */
+            automatically_scale_font_size: boolean;
+            /** @description The offering associated with this paywall. Expandable. */
+            offering?: components["schemas"]["Offering"];
+            /** @description Published and draft components configurations for this paywall. Expandable. */
+            components?: components["schemas"]["PaywallComponents"];
         };
+        PaywallComponents: {
+            /** @description The currently published version of the paywall. Null if the paywall has never been published. */
+            published: components["schemas"]["PaywallComponentsVersion"];
+            /** @description The draft version of the paywall if there are unpublished changes. Null if there are no unpublished changes. */
+            draft: components["schemas"]["PaywallComponentsVersion"];
+        };
+        /** @description A specific version (published or draft) of a paywall's components configuration. */
+        PaywallComponentsVersion: {
+            /**
+             * @description The revision number of this version.
+             * @example 1
+             */
+            revision: number | null;
+            /**
+             * @description The raw, schemaless JSON payload for paywall components configuration.
+             * @example {
+             *       "base": {
+             *         "stack": {
+             *           "id": "l7Ylx2UZeA",
+             *           "type": "stack",
+             *           "components": [
+             *             {
+             *               "id": "LFVZUCf9yW",
+             *               "type": "text",
+             *               "text_lid": "OBUxLwsvXb"
+             *             }
+             *           ]
+             *         },
+             *         "sticky_footer": {
+             *           "id": "UJJRRPzRuz",
+             *           "type": "footer"
+             *         }
+             *       }
+             *     }
+             */
+            components_config: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * @description The default locale for the paywall.
+             * @example en_US
+             */
+            default_locale: string | null;
+            /**
+             * @description Localized values keyed by locale code.
+             * @example {
+             *       "en_US": {
+             *         "title": "Premium"
+             *       }
+             *     }
+             */
+            components_localizations: {
+                [key: string]: {
+                    [key: string]: unknown;
+                };
+            };
+            /**
+             * @description Whether font sizes should automatically scale for this paywall.
+             * @default true
+             * @example true
+             */
+            automatically_scale_font_size: boolean;
+            /**
+             * @description Font objects used by the published paywall components. Only present on published versions.
+             * @example {
+             *       "CustomFont": {
+             *         "src": "https://example.com/font.ttf"
+             *       }
+             *     }
+             */
+            fonts?: {
+                [key: string]: unknown;
+            } | null;
+        } | null;
         PlayStoreApp: {
             /** @description Play Store type details */
             play_store?: {
@@ -2097,13 +3473,28 @@ export interface components {
             };
         };
         PlayStoreAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "play_store";
             /** @description Play Store type details. Should only be used when type is play_store. */
-            play_store?: {
+            play_store: {
                 /** @description The package name of the app */
                 package_name: string;
             };
         };
         Product: {
+            /**
+             * @description Whether the product is active or inactive (archived).
+             * @example active
+             * @enum {string}
+             */
+            state: "active" | "inactive";
             /**
              * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
              * @enum {string}
@@ -2144,8 +3535,13 @@ export interface components {
              */
             display_name: string | null;
         };
+        /** @description Subscription parameters for product creation. Only supported for simulated store products. */
+        ProductSubscriptionInput: {
+            /** @description The duration of the subscription. Only supported for test store products. */
+            duration: components["schemas"]["Duration"];
+        } | null;
         /** @enum {string} */
-        ProductType: string;
+        ProductType: "subscription" | "one_time" | "consumable" | "non_consumable" | "non_renewing_subscription";
         /** ProductsFromEntitlementList */
         ProductsFromEntitlement: {
             /**
@@ -2208,6 +3604,20 @@ export interface components {
              * @example 1658399423658
              */
             created_at: number;
+            /**
+             * @description The URL of the project's icon (small size)
+             * @example https://www.appatar.io/abc123/small
+             */
+            icon_url?: string | null;
+            /**
+             * @description The URL of the project's icon (large size)
+             * @example https://www.appatar.io/abc123/large
+             */
+            icon_url_large?: string | null;
+        };
+        ProjectCreate: {
+            /** @description The name of the project */
+            name: string;
         };
         PublicApiKey: {
             /**
@@ -2318,7 +3728,7 @@ export interface components {
              * @example amazon
              * @enum {string}
              */
-            store: "amazon" | "app_store" | "mac_app_store" | "play_store" | "promotional" | "stripe" | "rc_billing";
+            store: "amazon" | "app_store" | "mac_app_store" | "play_store" | "promotional" | "stripe" | "rc_billing" | "external" | "roku" | "paddle" | "paypal" | "galaxy" | "test_store";
             /**
              * @description The store purchase identifier
              * @example 12345678
@@ -2353,6 +3763,15 @@ export interface components {
             };
         };
         RCBillingAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "rc_billing";
             /** @description Revenue Cat Billing Store type details */
             rc_billing?: {
                 /** @description It needs to be connected to your RevenueCat account. It can be omitted if you only have a single Stripe account connected to your RevenueCat account. */
@@ -2369,7 +3788,37 @@ export interface components {
          * @example USD
          * @enum {string}
          */
-        RCBillingCurrency: string;
+        RCBillingCurrency: "USD" | "EUR" | "JPY" | "GBP" | "AUD" | "CAD" | "BRL" | "KRW" | "CNY" | "MXN" | "SEK" | "PLN" | "MYR" | "PHP" | "CHF" | "SAR" | "TWD" | "NOK" | "DKK" | "THB" | "NZD" | "SGD" | "HKD" | "CZK" | "AED" | "CLP" | "COP" | "CRC" | "GEL" | "HUF" | "IDR" | "ILS" | "IQD" | "JOD" | "KES" | "KZT" | "MAD" | "PEN" | "QAR" | "RON" | "RSD" | "TZS" | "VND" | "ZAR" | "TRY" | "UAH";
+        RevenueMetric: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @example revenue_metric
+             * @enum {string}
+             */
+            object: "revenue_metric";
+            /**
+             * Format: date
+             * @description Start date of the revenue range, inclusive (ISO 8601 format).
+             * @example 2026-01-01
+             */
+            start_date: string;
+            /**
+             * Format: date
+             * @description End date of the revenue range, inclusive (ISO 8601 format).
+             * @example 2026-01-31
+             */
+            end_date: string;
+            /**
+             * @description The ISO 4217 currency code that the revenue value is expressed in.
+             * @example USD
+             */
+            currency: string;
+            /**
+             * @description Total revenue for the date range, expressed in `currency`. Two-decimal precision.
+             * @example 12345.67
+             */
+            value: number;
+        };
         RokuApp: {
             /** @description Roku Channel Store type details */
             roku?: {
@@ -2380,6 +3829,15 @@ export interface components {
             };
         };
         RokuAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "roku";
             /** @description Roku Channel Store details. Should only be used when type is roku. */
             roku?: {
                 /** @description Roku Pay API key provided on the Roku Pay Web Services page. */
@@ -2432,6 +3890,15 @@ export interface components {
             };
         };
         StripeAppCreate: {
+            /** @description The name of the app */
+            name: string;
+            /**
+             * @description The platform of the app.
+             *     Mac App Store is disabled by default. See [Legacy Mac Apps](https://www.revenuecat.com/docs/legacy-mac-apps) for more details.
+             *      (enum property replaced by openapi-typescript)
+             * @enum {string}
+             */
+            type: "stripe";
             /** @description Stripe type details. Should only be used when type is stripe. */
             stripe?: {
                 /** @description It needs to be connected to your RevenueCat account. It can be omitted if you only have a single Stripe account connected to your RevenueCat account. */
@@ -2544,7 +4011,7 @@ export interface components {
              * @example amazon
              * @enum {string}
              */
-            store: "amazon" | "app_store" | "mac_app_store" | "play_store" | "promotional" | "stripe" | "rc_billing";
+            store: "amazon" | "app_store" | "mac_app_store" | "play_store" | "promotional" | "stripe" | "rc_billing" | "external" | "roku" | "paddle" | "paypal" | "galaxy" | "test_store";
             /**
              * @description The subscription identifier as per the store (e.g, for Apple App Store, the `transaction_id` of the latest transaction of the subscription, or for Google Play Store, the Order ID of the last renewal of the subscription)
              * @example 12345678
@@ -2599,6 +4066,27 @@ export interface components {
              * @example 1658399423658
              */
             purchased_at: number;
+            /**
+             * @description The store identifier of the purchased product
+             * @example com.example.product
+             */
+            product_store_identifier: string;
+            /** @description The revenue generated by the transaction in the customer's purchased currency */
+            revenue_in_local_currency?: components["schemas"]["MonetaryAmount"] | null;
+            /** @description The revenue generated by the transaction in USD */
+            revenue_in_usd?: components["schemas"]["MonetaryAmount"] | null;
+            /**
+             * Format: int64
+             * @description The expiration date of the transaction in ms since epoch
+             * @example 1658399423658
+             */
+            expiration_date?: number | null;
+            /**
+             * Format: int64
+             * @description The effective expiration date of the transaction in ms since epoch, including potential grace period
+             * @example 1658399423658
+             */
+            effective_expiration_date?: number | null;
         };
         /** TransferResult */
         Transfer: {
@@ -2606,6 +4094,77 @@ export interface components {
             source_customer: components["schemas"]["Customer"];
             /** @description The target customer after the transfer */
             target_customer: components["schemas"]["Customer"];
+        };
+        UpdateWebhookIntegrationInput: {
+            /**
+             * @description The display name of the webhook integration
+             * @example Customer updates webhook
+             */
+            name?: string;
+            /**
+             * Format: uri
+             * @description The URL RevenueCat will send webhook notifications to
+             * @example https://hooks.example.com/revenuecat
+             */
+            url?: string;
+            /**
+             * @description Optional authorization header that will be sent with webhook notifications
+             * @example Bearer 123456
+             */
+            authorization_header?: string | null;
+            /**
+             * @description The environment the webhook integration is configured for
+             * @enum {string|null}
+             */
+            environment?: "production" | "sandbox" | null;
+            /** @description Event types that will trigger the webhook */
+            event_types?: components["schemas"]["WebhookEventType"][] | null;
+            /**
+             * @description The ID of the app the webhook integration is scoped to
+             * @example app_1234567890abcdef
+             */
+            app_id?: string | null;
+        };
+        VirtualCurrency: {
+            /**
+             * @description Whether the virtual currency is active or inactive (archived).
+             * @example active
+             * @enum {string}
+             */
+            state: "active" | "inactive";
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "virtual_currency";
+            /**
+             * @description ID of the project to which the virtual currency belongs
+             * @example proj1ab2c3d4
+             */
+            project_id: string;
+            /**
+             * @description The unique code for this virtual currency
+             * @example GLD
+             */
+            code: string;
+            /**
+             * @description The display name of the virtual currency
+             * @example Gold
+             */
+            name: string;
+            /**
+             * Format: int64
+             * @description The date the virtual currency was created at in ms since epoch
+             * @example 1658399423658
+             */
+            created_at: number;
+            /**
+             * @description Description of the virtual currency
+             * @example Gold currency used in the game
+             */
+            description?: string | null;
+            /** @description The grants that define how products grant this virtual currency */
+            product_grants?: components["schemas"]["VirtualCurrencyProductGrant"][] | null;
         };
         /** VirtualCurrencyBalance */
         VirtualCurrencyBalance: {
@@ -2623,8 +4182,116 @@ export interface components {
             /** @description The name of the virtual currency. */
             name?: string;
         };
+        VirtualCurrencyProductGrant: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "virtual_currency.product_grant";
+            /** @description The list of product IDs that grant this virtual currency */
+            product_ids: string[];
+            /**
+             * @description The amount of virtual currency granted
+             * @example 100
+             */
+            amount: number;
+            /**
+             * @description The amount of virtual currency granted during trial period
+             * @example 0
+             */
+            trial_amount: number;
+            /**
+             * @description Whether the grant expires at the end of the subscription cycle
+             * @example false
+             */
+            expire_at_cycle_end: boolean;
+        };
+        VirtualCurrencyProductGrantInput: {
+            /** @description The list of product IDs that grant this virtual currency */
+            product_ids: string[];
+            /**
+             * @description The amount of virtual currency granted
+             * @example 100
+             */
+            amount: number;
+            /**
+             * @description The amount of virtual currency granted during trial period
+             * @example 0
+             */
+            trial_amount?: number | null;
+            /**
+             * @description Whether the grant expires at the end of the subscription cycle
+             * @example false
+             */
+            expire_at_cycle_end?: boolean | null;
+        };
+        /**
+         * @description The type of event that triggers the webhook
+         * @example initial_purchase
+         * @enum {string}
+         */
+        WebhookEventType: "initial_purchase" | "renewal" | "product_change" | "cancellation" | "billing_issue" | "non_renewing_purchase" | "uncancellation" | "transfer" | "subscription_paused" | "expiration" | "subscription_extended" | "invoice_issuance" | "temporary_entitlement_grant" | "refund_reversed" | "virtual_currency_transaction";
+        WebhookIntegration: {
+            /**
+             * @description String representing the object's type. Objects of the same type share the
+             *     same value.
+             * @enum {string}
+             */
+            object: "webhook_integration";
+            /**
+             * @description The ID of the webhook integration
+             * @example wh_1234567890abcdef
+             */
+            id: string;
+            /**
+             * @description The ID of the project the webhook integration belongs to
+             * @example proj_1234567890abcdef
+             */
+            project_id: string;
+            /**
+             * @description The display name of the webhook integration
+             * @example Customer updates webhook
+             */
+            name: string;
+            /**
+             * Format: uri
+             * @description The URL RevenueCat will send webhook notifications to
+             * @example https://hooks.example.com/revenuecat
+             */
+            url: string;
+            /**
+             * @description The environment the webhook integration is configured for. Only events for the selected environment will be sent.
+             * @enum {string|null}
+             */
+            environment: "production" | "sandbox" | null;
+            /** @description Event types that will trigger the webhook. Only events for the selected event types will be sent. */
+            event_types?: string[] | null;
+            /**
+             * @description The ID of the app the webhook integration is scoped to. If not provided, the webhook integration will be scoped to all apps in the project.
+             * @example app_1234567890abcdef
+             */
+            app_id: string | null;
+            /**
+             * Format: int64
+             * @description The timestamp in ms since epoch when the webhook integration was created
+             * @example 1658399423658
+             */
+            created_at: number;
+        };
     };
     responses: {
+        /** @description Bad gateway */
+        BadGateway: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["Error"] & {
+                    /** @enum {string} */
+                    type?: "server_error";
+                };
+            };
+        };
         /** @description Bad request */
         BadRequest: {
             headers: {
@@ -2645,7 +4312,7 @@ export interface components {
             content: {
                 "application/json": components["schemas"]["Error"] & {
                     /** @enum {string} */
-                    type?: "resource_already_exists" | "idempotency_error";
+                    type?: "resource_already_exists" | "idempotency_error" | "invalid_request";
                 };
             };
         };
@@ -2732,7 +4399,7 @@ export interface components {
             content: {
                 "application/json": components["schemas"]["Error"] & {
                     /** @enum {string} */
-                    type?: "unprocessable_entity_error" | "parameter_error" | "store_error";
+                    type?: "unprocessable_entity_error" | "parameter_error" | "store_error" | "entity_references_archived_entities";
                 };
             };
         };
@@ -2760,6 +4427,103 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    "create-media-asset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description File name for the uploaded image.
+                     * @example hero.webp
+                     */
+                    filename: string;
+                    /**
+                     * @description MIME type for the uploaded image.
+                     * @example image/webp
+                     * @enum {string}
+                     */
+                    content_type: "image/jpeg" | "image/png" | "image/avif" | "image/heic" | "image/heif" | "image/webp";
+                    /**
+                     * @description Base64-encoded image bytes.
+                     * @example UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA
+                     */
+                    file_data_base64: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The media asset was uploaded. */
+            201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaAsset"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-paywalls": {
+        parameters: {
+            query?: {
+                starting_after?: string;
+                limit?: number;
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `items.offering` (requires `project_configuration:offerings:read` permission).
+                 */
+                expand?: "items.offering"[];
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListPaywalls"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
     "create-paywall": {
         parameters: {
             query?: never;
@@ -2778,12 +4542,237 @@ export interface operations {
                      * @example ofrng123456789a
                      */
                     offering_id: string;
+                    /**
+                     * @description Whether font sizes should automatically scale for this paywall. Defaults to true.
+                     * @default true
+                     * @example true
+                     */
+                    automatically_scale_font_size?: boolean;
+                } | {
+                    /**
+                     * @description The optional ID of the offering the paywall draft will be attached to.
+                     * @example ofrng123456789a
+                     */
+                    offering_id?: string | null;
+                    /**
+                     * @description Optional paywall name.
+                     * @example Main Paywall
+                     */
+                    name?: string | null;
+                    /**
+                     * @description The raw paywall components configuration to save as the draft.
+                     * @example {
+                     *       "base": {
+                     *         "stack": {
+                     *           "id": "main_stack",
+                     *           "type": "stack",
+                     *           "components": []
+                     *         }
+                     *       }
+                     *     }
+                     */
+                    components_config: {
+                        [key: string]: unknown;
+                    };
+                    /**
+                     * @description Localized component values keyed by locale.
+                     * @example {
+                     *       "en_US": {
+                     *         "title": "Premium"
+                     *       }
+                     *     }
+                     */
+                    components_localizations: {
+                        [key: string]: {
+                            [key: string]: unknown;
+                        };
+                    };
+                    /**
+                     * @description The default locale for this paywall. Defaults to en_US.
+                     * @default en_US
+                     * @example en_US
+                     */
+                    default_locale?: string;
+                    /**
+                     * @description Whether font sizes should automatically scale for this paywall. Defaults to true.
+                     * @default true
+                     * @example true
+                     */
+                    automatically_scale_font_size?: boolean;
                 };
             };
         };
         responses: {
             /** @description Success. The paywall was created */
             201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Paywall"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-paywall": {
+        parameters: {
+            query?: {
+                /**
+                 * @description Specifies which fields in the response should be expanded.
+                 *      Accepted values are: `offering` (requires `project_configuration:offerings:read` permission), `components` (requires `project_configuration:offerings:read` permission).
+                 */
+                expand?: ("offering" | "components")[];
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the paywall */
+                paywall_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Paywall"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "delete-paywall": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the paywall */
+                paywall_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeletedObject"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "update-paywall": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the paywall */
+                paywall_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The current draft revision. Used to reject stale writes.
+                     * @example 1
+                     */
+                    revision: number;
+                    /**
+                     * @description The raw paywall components configuration to save as the draft.
+                     * @example {
+                     *       "base": {
+                     *         "stack": {
+                     *           "id": "main_stack",
+                     *           "type": "stack",
+                     *           "components": []
+                     *         }
+                     *       }
+                     *     }
+                     */
+                    components_config: {
+                        [key: string]: unknown;
+                    };
+                    /**
+                     * @description Localized component values keyed by locale.
+                     * @example {
+                     *       "en_US": {
+                     *         "title": "Premium"
+                     *       }
+                     *     }
+                     */
+                    components_localizations: {
+                        [key: string]: {
+                            [key: string]: unknown;
+                        };
+                    };
+                    /**
+                     * @description The default locale for this paywall.
+                     * @example en_US
+                     */
+                    default_locale: string;
+                    /**
+                     * @description Optional paywall name.
+                     * @example Main Paywall
+                     */
+                    name?: string | null;
+                    /**
+                     * @description Whether font sizes should automatically scale for this paywall draft.
+                     * @example true
+                     */
+                    automatically_scale_font_size?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The paywall draft was updated. */
+            200: {
                 headers: {
                     "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
                     "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
@@ -2867,6 +4856,42 @@ export interface operations {
             401: components["responses"]["Unauthorized"];
             403: components["responses"]["Forbidden"];
             404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "create-project": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProjectCreate"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Project"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
             423: components["responses"]["Locked"];
             429: components["responses"]["RateLimited"];
             500: components["responses"]["InternalError"];
@@ -3016,6 +5041,20 @@ export interface operations {
                         bundle_id?: string;
                         /** @description The shared secret of the app */
                         shared_secret?: string | null;
+                        /** @description PKCS */
+                        subscription_private_key?: string;
+                        /** @description In App Key id. The ID of the downloaded in app key. You can get it from App Store Connect */
+                        subscription_key_id?: string;
+                        /** @description The key Issuer id. See instructions on how to obtain this in https://www.revenuecat.com/docs/in-app-purchase-key-configuration#3-providing-the-issuer-id-to-revenuecat */
+                        subscription_key_issuer?: string;
+                        /** @description App Store Connect API Key downloaded from App Store Connect in PEM format. Copy the contents of the file in this field. This is optional and used for advanced features like product imports. */
+                        app_store_connect_api_key?: string;
+                        /** @description App Store Connect API Key ID. The ID of the downloaded API key. You can get it from App Store Connect. */
+                        app_store_connect_api_key_id?: string;
+                        /** @description App Store Connect API Key Issuer ID. */
+                        app_store_connect_api_key_issuer?: string;
+                        /** @description Your vendor number from App Store Connect. Required for some features like financial reports. */
+                        app_store_connect_vendor_number?: string;
                     };
                     /** @description Legacy Mac App Store type details. Should only be used when type is mac_app_store. */
                     mac_app_store?: {
@@ -3150,6 +5189,83 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StoreKitConfigFile"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-audit-logs": {
+        parameters: {
+            query?: {
+                /** @description Cursor for pagination. Returns audit logs after the specified audit log ID, using descending order by audit log ID. */
+                starting_after?: string;
+                /** @description Start date for the data range (ISO 8601 format) */
+                start_date?: string;
+                /** @description End date for the data range (ISO 8601 format) */
+                end_date?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListAuditLogs"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-collaborators": {
+        parameters: {
+            query?: {
+                starting_after?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListCollaborators"];
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3342,6 +5458,46 @@ export interface operations {
             503: components["responses"]["InternalError"];
         };
     };
+    "get-customer-center-config": {
+        parameters: {
+            query?: {
+                /** @description The platform to process the Customer Center configuration for. When provided, returns the locale-selected, platform-filtered configuration the customer would see. When omitted, returns the full unprocessed configuration for all platforms. Must match a store configured on this project. */
+                platform?: "app_store" | "play_store" | "mac_app_store" | "stripe" | "amazon";
+                /** @description BCP 47 locale string (e.g. en_US) used to select the appropriate localization when platform is provided. When omitted, the configuration's default locale is used. Has no effect if platform is not provided. */
+                locale?: string;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerCenterConfig"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
     "transfer-customer-data": {
         parameters: {
             query?: never;
@@ -3374,6 +5530,395 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Transfer"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "grant-customer-entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The ID of the entitlement to grant to the customer.
+                     * @example entla1b2c3d4e5
+                     */
+                    entitlement_id: string;
+                    /**
+                     * Format: int64
+                     * @description The date after which the access to the entitlement expires in ms since epoch.
+                     * @example 1658399423658
+                     */
+                    expires_at: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Entitlement granted successfully */
+            201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "revoke-customer-granted-entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The ID of the granted entitlement to revoke from the customer.
+                     * @example entla1b2c3d4e5
+                     */
+                    entitlement_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Entitlement revoked successfully */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "assign-customer-offering": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The ID of the offering to assign to the customer. Set to null to clear any existing override.
+                     * @example offrng1b2c3d4e5
+                     */
+                    offering_id: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Offering assigned successfully */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "restore-purchase-by-order-id": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the customer */
+                customer_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The Google Play order ID to restore.
+                     * @example GPA.1234-5678-9012-34567
+                     */
+                    order_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Purchase restored successfully */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Customer"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-webhook-integrations": {
+        parameters: {
+            query?: {
+                starting_after?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListWebhookIntegrations"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "create-webhook-integration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWebhookIntegrationInput"];
+            };
+        };
+        responses: {
+            /** @description Webhook integration created */
+            201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WebhookIntegration"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-webhook-integration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /**
+                 * @description The ID of the webhook integration
+                 * @example wh_1234567890abcdef
+                 */
+                webhook_integration_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WebhookIntegration"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "update-webhook-integration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /**
+                 * @description The ID of the webhook integration
+                 * @example wh_1234567890abcdef
+                 */
+                webhook_integration_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateWebhookIntegrationInput"];
+            };
+        };
+        responses: {
+            /** @description Webhook integration updated */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WebhookIntegration"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "delete-webhook-integration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /**
+                 * @description The ID of the webhook integration
+                 * @example wh_1234567890abcdef
+                 */
+                webhook_integration_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Webhook integration deleted */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeletedObject"];
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3429,6 +5974,53 @@ export interface operations {
             503: components["responses"]["InternalError"];
         };
     };
+    "update-product": {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the product */
+                product_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @description The display name of the product */
+                    display_name?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The product was updated */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
     "delete-product": {
         parameters: {
             query?: never;
@@ -3452,6 +6044,80 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DeletedObject"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "archive-product": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the product */
+                product_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The product was archived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "unarchive-product": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the product */
+                product_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The product was unarchived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Product"];
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3594,6 +6260,13 @@ export interface operations {
                      * @example Premium Monthly 2023
                      */
                     display_name?: string | null;
+                    /** @description Subscription parameters. Only supported for test store products. */
+                    subscription?: components["schemas"]["ProductSubscriptionInput"];
+                    /**
+                     * @description The user-facing title of the product. This field is required for Test Store products.
+                     * @example Premium Monthly 2023
+                     */
+                    title?: string | null;
                 };
             };
         };
@@ -3607,6 +6280,299 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Product"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "list-virtual-currencies": {
+        parameters: {
+            query?: {
+                starting_after?: string;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ListVirtualCurrencies"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "create-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The unique code for this virtual currency
+                     * @example GLD
+                     */
+                    code: string;
+                    /**
+                     * @description The display name of the virtual currency
+                     * @example Gold
+                     */
+                    name: string;
+                    /**
+                     * @description Description of the virtual currency
+                     * @example Gold currency used in the game
+                     */
+                    description?: string | null;
+                    /** @description Product grants that define how products grant this virtual currency */
+                    product_grants?: components["schemas"]["VirtualCurrencyProductGrantInput"][] | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The virtual currency was created */
+            201: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VirtualCurrency"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description The virtual currency code */
+                virtual_currency_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VirtualCurrency"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "update-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description The virtual currency code */
+                virtual_currency_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The display name of the virtual currency
+                     * @example Gold
+                     */
+                    name?: string;
+                    /**
+                     * @description Description of the virtual currency
+                     * @example Gold currency used in the game
+                     */
+                    description?: string | null;
+                    /** @description Product grants that define how products grant this virtual currency */
+                    product_grants?: components["schemas"]["VirtualCurrencyProductGrantInput"][] | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The virtual currency was updated */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VirtualCurrency"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "delete-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description The virtual currency code */
+                virtual_currency_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The virtual currency was deleted */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeletedObject"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "archive-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description The virtual currency code */
+                virtual_currency_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The virtual currency was archived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VirtualCurrency"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "unarchive-virtual-currency": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description The virtual currency code */
+                virtual_currency_code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The virtual currency was unarchived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VirtualCurrency"];
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3875,6 +6841,80 @@ export interface operations {
             503: components["responses"]["InternalError"];
         };
     };
+    "archive-entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the entitlement */
+                entitlement_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The entitlement was archived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Entitlement"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "unarchive-entitlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the entitlement */
+                entitlement_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The entitlement was unarchived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Entitlement"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
     "attach-products-to-entitlement": {
         parameters: {
             query?: never;
@@ -4081,6 +7121,90 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DeletedObject"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "archive-offering": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the offering */
+                offering_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The offering was archived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Offering"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "unarchive-offering": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the offering */
+                offering_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description If true, also unarchive any archived products referenced by this offering's packages.
+                     * @default false
+                     */
+                    unarchive_referenced_entities?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Success. The offering was unarchived */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Offering"];
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4579,9 +7703,16 @@ export interface operations {
             503: components["responses"]["InternalError"];
         };
     };
-    "get-play-store-subscription-transactions": {
+    "get-play-store-or-app-store-subscription-transactions": {
         parameters: {
-            query?: never;
+            query?: {
+                starting_after?: string;
+                limit?: number;
+                /** @description Column to sort the result list by. */
+                sort?: "id" | "purchased_at";
+                /** @description Sort direction for the result list. */
+                direction?: "asc" | "desc";
+            };
             header?: never;
             path: {
                 /** @description ID of the project */
@@ -4728,6 +7859,47 @@ export interface operations {
             503: components["responses"]["InternalError"];
         };
     };
+    "extend-subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /** @description ID of the subscription */
+                subscription_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExtendSubscriptionByDuration"] | components["schemas"]["ExtendSubscriptionUntilDate"];
+            };
+        };
+        responses: {
+            /** @description Success. The subscription's current billing period has been extended. */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Subscription"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            409: components["responses"]["Conflict"];
+            422: components["responses"]["UnprocessableEntity"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
     "refund-subscription": {
         parameters: {
             query?: never;
@@ -4797,6 +7969,7 @@ export interface operations {
             423: components["responses"]["Locked"];
             429: components["responses"]["RateLimited"];
             500: components["responses"]["InternalError"];
+            502: components["responses"]["BadGateway"];
             503: components["responses"]["InternalError"];
         };
     };
@@ -5377,7 +8550,7 @@ export interface operations {
         parameters: {
             query?: {
                 /**
-                 * @description ISO 4217 currency code
+                 * @description The currency to return metrics data in
                  * @example EUR
                  */
                 currency?: "USD" | "EUR" | "GBP" | "AUD" | "CAD" | "JPY" | "BRL" | "KRW" | "CNY" | "MXN" | "SEK" | "PLN";
@@ -5400,6 +8573,214 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OverviewMetrics"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-revenue-metric": {
+        parameters: {
+            query: {
+                /** @description Start date for the data range (ISO 8601 format) */
+                start_date: string;
+                /** @description End date for the data range (ISO 8601 format) */
+                end_date: string;
+                /**
+                 * @description The currency to return metrics data in
+                 * @example EUR
+                 */
+                currency?: "USD" | "EUR" | "GBP" | "AUD" | "CAD" | "JPY" | "BRL" | "KRW" | "CNY" | "MXN" | "SEK" | "PLN";
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RevenueMetric"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-chart-data": {
+        parameters: {
+            query?: {
+                /** @description Whether to request real-time (v3) charts. Defaults to true. Set to false to request the v2 charts. */
+                realtime?: boolean;
+                /**
+                 * @description JSON array of chart filters. Each filter is a ChartFilter object.
+                 * @example [{"name":"country","values":["US","UK"]}]
+                 */
+                filters?: string;
+                /**
+                 * @description JSON object of chart selectors.
+                 * @example {"conversion_timeframe":"7_days","revenue_type":"proceeds"}
+                 */
+                selectors?: string;
+                /** @description Comma-separated aggregate operations to return in `summary` without raw `values`. */
+                aggregate?: ("average" | "total")[];
+                /**
+                 * @description The currency to return metrics data in
+                 * @example EUR
+                 */
+                currency?: "USD" | "EUR" | "GBP" | "AUD" | "CAD" | "JPY" | "BRL" | "KRW" | "CNY" | "MXN" | "SEK" | "PLN";
+                /**
+                 * @description Time resolution for the chart data.
+                 *     Use the chart options endpoint to discover available resolutions and their IDs.
+                 */
+                resolution?: string;
+                /** @description Start date for the data range (ISO 8601 format) */
+                start_date?: string;
+                /** @description End date for the data range (ISO 8601 format) */
+                end_date?: string;
+                /**
+                 * @description Segment the data by this dimension. Use the chart options endpoint
+                 *     to discover available segments for a chart.
+                 */
+                segment?: string;
+                /**
+                 * @description If set, limits the number of segments returned to the top N by value.
+                 *     All remaining segments are aggregated into an "Other" segment.
+                 *     Only applies when a segment is specified.
+                 */
+                limit_num_segments?: number;
+                /** @description When true, includes chart annotations for the project in the response, filtered to the chart's date window. */
+                include_annotations?: boolean;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /**
+                 * @description Name of the chart to retrieve:
+                 *     - actives: Active (paying) subscriptions
+                 *     - actives_movement: Period-over-period delta of active (paying) subscriptions
+                 *     - actives_new: New paying subscriptions, including trial conversions, resubscriptions, and product changes
+                 *     - arr: Annual recurring revenue
+                 *     - churn: Churn rate: active and expired subscriptions per period
+                 *     - cohort_explorer: allows measuring the performance of various cohort definitions over time for revenue, retained subscriptions, and cohort LTV
+                 *     - conversion_to_paying: Conversion of new customers to paying
+                 *     - customers_new: Newly seen customers
+                 *     - ltv_per_customer: Realized LTV per customer, also known as ARPU, cohorted by first seen date
+                 *     - ltv_per_paying_customer: Realized LTV per paying customer, also known as ARPPU, cohorted by first seen date
+                 *     - mrr: Monthly recurring revenue
+                 *     - mrr_movement: Period-over-period delta of monthly recurring revenue
+                 *     - prediction_explorer: similar to cohort_explorer but including future predictions
+                 *     - refund_rate: transactions per period, refunds, refund rate
+                 *     - revenue: revenue and number of transactions (subscriptions and non-subscriptions) per period
+                 *     - subscription_retention: Per-period retention of paying subscriptions by duration
+                 *     - subscription_status: Break down paying subscriptions, trials, MRR, ARR, or revenue by whether the subscription is set to renew, cancelled, or in billing recovery
+                 *     - trials: Active trials
+                 *     - trials_movement: Movement of active trials
+                 *     - trials_new: New trials
+                 *     - customers_active: Customers seen during the period (also known as DAU/MAU/WAU/etc.)
+                 *     - trial_conversion_rate: Number of trials started in a period and ratio of them converting to paying
+                 *     - non-subscription_purchases: Number of non-subscription purchases per period
+                 */
+                chart_name: "actives" | "actives_movement" | "actives_new" | "arr" | "churn" | "cohort_explorer" | "conversion_to_paying" | "customers_new" | "ltv_per_customer" | "ltv_per_paying_customer" | "mrr" | "mrr_movement" | "prediction_explorer" | "refund_rate" | "revenue" | "subscription_retention" | "subscription_status" | "trials" | "trials_movement" | "trials_new" | "customers_active" | "trial_conversion_rate" | "non-subscription_purchases";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Chart data retrieved successfully */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChartData"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
+            403: components["responses"]["Forbidden"];
+            404: components["responses"]["NotFound"];
+            423: components["responses"]["Locked"];
+            429: components["responses"]["RateLimited"];
+            500: components["responses"]["InternalError"];
+            503: components["responses"]["InternalError"];
+        };
+    };
+    "get-chart-options": {
+        parameters: {
+            query?: {
+                /** @description Whether to request real-time (v3) charts. Defaults to true. Set to false to request the v2 charts. */
+                realtime?: boolean;
+            };
+            header?: never;
+            path: {
+                /** @description ID of the project */
+                project_id: string;
+                /**
+                 * @description Name of the chart to retrieve:
+                 *     - actives: Active (paying) subscriptions
+                 *     - actives_movement: Period-over-period delta of active (paying) subscriptions
+                 *     - actives_new: New paying subscriptions, including trial conversions, resubscriptions, and product changes
+                 *     - arr: Annual recurring revenue
+                 *     - churn: Churn rate: active and expired subscriptions per period
+                 *     - cohort_explorer: allows measuring the performance of various cohort definitions over time for revenue, retained subscriptions, and cohort LTV
+                 *     - conversion_to_paying: Conversion of new customers to paying
+                 *     - customers_new: Newly seen customers
+                 *     - ltv_per_customer: Realized LTV per customer, also known as ARPU, cohorted by first seen date
+                 *     - ltv_per_paying_customer: Realized LTV per paying customer, also known as ARPPU, cohorted by first seen date
+                 *     - mrr: Monthly recurring revenue
+                 *     - mrr_movement: Period-over-period delta of monthly recurring revenue
+                 *     - prediction_explorer: similar to cohort_explorer but including future predictions
+                 *     - refund_rate: transactions per period, refunds, refund rate
+                 *     - revenue: revenue and number of transactions (subscriptions and non-subscriptions) per period
+                 *     - subscription_retention: Per-period retention of paying subscriptions by duration
+                 *     - subscription_status: Break down paying subscriptions, trials, MRR, ARR, or revenue by whether the subscription is set to renew, cancelled, or in billing recovery
+                 *     - trials: Active trials
+                 *     - trials_movement: Movement of active trials
+                 *     - trials_new: New trials
+                 *     - customers_active: Customers seen during the period (also known as DAU/MAU/WAU/etc.)
+                 *     - trial_conversion_rate: Number of trials started in a period and ratio of them converting to paying
+                 *     - non-subscription_purchases: Number of non-subscription purchases per period
+                 */
+                chart_name: "actives" | "actives_movement" | "actives_new" | "arr" | "churn" | "cohort_explorer" | "conversion_to_paying" | "customers_new" | "ltv_per_customer" | "ltv_per_paying_customer" | "mrr" | "mrr_movement" | "prediction_explorer" | "refund_rate" | "revenue" | "subscription_retention" | "subscription_status" | "trials" | "trials_movement" | "trials_new" | "customers_active" | "trial_conversion_rate" | "non-subscription_purchases";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Chart options retrieved successfully */
+            200: {
+                headers: {
+                    "RevenueCat-Rate-Limit-Current-Usage": components["headers"]["RateLimitCurrentUsage"];
+                    "RevenueCat-Rate-Limit-Current-Limit": components["headers"]["RateLimitCurrentLimit"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChartOptions"];
                 };
             };
             400: components["responses"]["BadRequest"];
